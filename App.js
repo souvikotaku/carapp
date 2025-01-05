@@ -14,6 +14,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Entypo from "react-native-vector-icons/Entypo";
+import Feather from "react-native-vector-icons/Feather";
+import Fontisto from "react-native-vector-icons/Fontisto";
+import AntDesign from "react-native-vector-icons/AntDesign";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -24,23 +27,57 @@ const TabNav = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarActiveTintColor: "#f00036", // Set active tab color
       }}
     >
       <Tab.Screen
         name="Home"
         component={Homescreen}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="ios-home" color={color} size={size} />
+          tabBarIcon: ({ color, size, focused }) => (
+            <Feather
+              name="home"
+              color={focused ? "#f00036" : color} // Change color when focused
+              size={size}
+            />
           ),
         }}
       />
       <Tab.Screen
-        name="Categories"
+        name="Activity"
         component={Categoryscreen}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="category" color={color} size={size} />
+          tabBarIcon: ({ color, size, focused }) => (
+            <Fontisto
+              name="bell"
+              color={focused ? "#f00036" : color} // Change color when focused
+              size={size}
+            />
+          ),
+          headerShown: true,
+          headerTitleStyle: {
+            fontSize: 22,
+            lineHeight: 30,
+            color: "white",
+            fontFamily: "Helvetica Neue",
+          },
+
+          headerStyle: {
+            backgroundColor: "#2A4BA0",
+          },
+          title: "Activity",
+        }}
+      />
+      <Tab.Screen
+        name="Post"
+        component={Categoryscreen}
+        options={{
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons
+              name="add-circle"
+              color={"#f00036"} // Change color when focused
+              size={35}
+            />
           ),
           headerShown: true,
           headerTitleStyle: {
@@ -52,15 +89,19 @@ const TabNav = () => {
           headerStyle: {
             backgroundColor: "#2A4BA0",
           },
-          title: "Categories",
+          title: "Post",
         }}
       />
       <Tab.Screen
-        name="Favorite"
+        name="Chat"
         component={Favoritescreen}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="favorite-border" color={color} size={size} />
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons
+              name="chatbubble-outline"
+              color={focused ? "#f00036" : color}
+              size={size}
+            />
           ),
           headerShown: true,
           headerTitleStyle: {
@@ -72,15 +113,19 @@ const TabNav = () => {
           headerStyle: {
             backgroundColor: "#2A4BA0",
           },
-          title: "Favorites",
+          title: "Chat",
         }}
       />
       <Tab.Screen
-        name="More"
+        name="User"
         component={Morescreen}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Entypo name="dots-three-vertical" color={color} size={size} />
+          tabBarIcon: ({ color, size, focused }) => (
+            <AntDesign
+              name="user"
+              color={focused ? "#f00036" : color}
+              size={size}
+            />
           ),
           headerShown: false,
           headerTitleStyle: {
@@ -92,7 +137,7 @@ const TabNav = () => {
           headerStyle: {
             backgroundColor: "#2A4BA0",
           },
-          title: "More",
+          title: "User",
         }}
       />
     </Tab.Navigator>

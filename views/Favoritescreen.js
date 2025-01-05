@@ -77,10 +77,10 @@ const Favoritescreen = ({ navigation }) => {
         />
       ) : (
         <>
-          <Image
+          {/* <Image
             source={require("./assets/pika.png")}
             style={styles.prodimage2}
-          />
+          /> */}
           <View>
             <Text
               style={{

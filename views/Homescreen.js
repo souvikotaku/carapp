@@ -25,6 +25,7 @@ import numberplates from "./assets/categories/numberplates.png";
 import parts from "./assets/categories/parts.png";
 import slide from "./assets/slide.png";
 import showroom from "./assets/showroom.png";
+import showroomicon from "./assets/showroomicon.png";
 import Carousel from "react-native-reanimated-carousel";
 
 import axios from "axios";
@@ -136,42 +137,24 @@ const Homescreen = ({ navigation }) => {
       id: 1,
       title: "Toyota Motors",
       thumbnail: showroom,
+      distance: "1.2 kms away",
+      icon: showroomicon,
     },
     {
       id: 2,
       title: "Toyota Motors",
       thumbnail: showroom,
+      distance: "1.2 kms away",
+      icon: showroomicon,
     },
     {
       id: 3,
       title: "Toyota Motors",
       thumbnail: showroom,
+      distance: "1.2 kms away",
+      icon: showroomicon,
     },
   ];
-
-  const renderItemshowroom = ({ item }) => (
-    <View
-      style={{
-        width: 170,
-        // paddingLeft: 7,
-        // paddingRight: 7,
-        // backgroundColor: "red",
-      }}
-    >
-      <TouchableOpacity>
-        <Image
-          source={item}
-          // style={{ width: "100%", height: 250 }}
-          style={{
-            margin: "auto",
-            height: "92%",
-            width: "92%",
-            objectFit: "contain",
-          }}
-        />
-      </TouchableOpacity>
-    </View>
-  );
 
   useEffect(() => {
     axios
@@ -187,15 +170,7 @@ const Homescreen = ({ navigation }) => {
         console.error(err);
       });
   }, []);
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (carouselRef.current) {
-  //       carouselRef.current.snapToNext(); // Automatically move to the next slide
-  //     }
-  //   }, 3000); // Change slide every 3 seconds
 
-  //   return () => clearInterval(interval); // Clean up interval on unmount
-  // }, []);
   const imagesslide = [
     slide, // Replace with your actual image paths
     slide,
@@ -214,12 +189,6 @@ const Homescreen = ({ navigation }) => {
       <Image source={item} style={styles.image} />
     </View>
   );
-
-  // const MemoizedItem = React.memo(({ item }) => (
-  //   <View style={styles.slide}>
-  //     <Image source={item} style={styles.image} />
-  //   </View>
-  // ));
 
   const toggleSearch = () => {
     if (showsearch) {
@@ -326,9 +295,9 @@ const Homescreen = ({ navigation }) => {
           </View>
           <View style={styles.container3}>
             <View
-              style={{
-                marginBottom: 10,
-              }}
+            // style={{
+            //   marginBottom: 10,
+            // }}
             >
               <Text
                 style={{
@@ -340,9 +309,12 @@ const Homescreen = ({ navigation }) => {
               </Text>
             </View>
             <View
-              style={{
-                backgroundColor: "white",
-              }}
+              style={
+                {
+                  // backgroundColor: "red",
+                  // height: "100%",
+                }
+              }
             >
               <ScrollView
                 horizontal={true}
@@ -353,9 +325,10 @@ const Homescreen = ({ navigation }) => {
                     key={index}
                     style={{
                       width: 170,
+                      // height: 300,
                       // paddingLeft: 7,
                       // paddingRight: 7,
-                      // backgroundColor: "red",
+                      // backgroundColor: index === 0 ? "pink" : null,
                     }}
                   >
                     <TouchableOpacity>
@@ -367,8 +340,42 @@ const Homescreen = ({ navigation }) => {
                           height: "92%",
                           width: "92%",
                           objectFit: "contain",
+                          marginTop: -12,
                         }}
                       />
+
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          marginTop: -25,
+                        }}
+                      >
+                        <Image
+                          source={item.icon}
+                          style={{
+                            height: 40,
+                            width: 40,
+                            marginRight: 8,
+                            marginLeft: 8,
+                            borderRadius: 5,
+                          }}
+                        />
+                        <View>
+                          <Text
+                            style={{
+                              color: "black",
+                              fontSize: 14,
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {item.title}
+                          </Text>
+                          <Text style={{ color: "black", fontSize: 12 }}>
+                            {item.distance}
+                          </Text>
+                        </View>
+                      </View>
                     </TouchableOpacity>
                   </View>
                 ))}
@@ -430,15 +437,17 @@ const styles = StyleSheet.create({
   },
 
   container3: {
+    // backgroundColor: "yellow",
+
     // flex: 1,
-    marginTop: -20,
-    marginBottom: 50,
+    marginTop: -17,
+    marginBottom: "8%",
     // paddingBottom: 5,
     // paddingLeft: 5,
     // paddingRight: 5,
     // backgroundColor: "pink",
     width: "100%",
-    height: 160,
+    height: 210,
   },
   prodimage: {
     width: 60, // Reduce the size of the image
