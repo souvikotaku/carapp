@@ -35,11 +35,29 @@ const TabNav = () => {
         component={Homescreen}
         options={{
           tabBarIcon: ({ color, size, focused }) => (
-            <Feather
-              name="home"
-              color={focused ? "#f00036" : color} // Change color when focused
-              size={size}
-            />
+            // <Feather
+            //   name="home"
+            //   color={focused ? "#f00036" : color} // Change color when focused
+            //   size={size}
+            // />
+            <View style={{ alignItems: "center" }}>
+              {focused && (
+                <View
+                  style={{
+                    width: "60%",
+                    height: 3,
+                    backgroundColor: "#f00036", // Color of the line
+                    position: "absolute",
+                    top: -6, // Adjust spacing above the icon
+                  }}
+                />
+              )}
+              <Feather
+                name="home"
+                color={focused ? "#f00036" : color} // Change icon color when focused
+                size={size}
+              />
+            </View>
           ),
         }}
       />
@@ -48,11 +66,29 @@ const TabNav = () => {
         component={Categoryscreen}
         options={{
           tabBarIcon: ({ color, size, focused }) => (
-            <Fontisto
-              name="bell"
-              color={focused ? "#f00036" : color} // Change color when focused
-              size={size}
-            />
+            // <Fontisto
+            //   name="bell"
+            //   color={focused ? "#f00036" : color} // Change color when focused
+            //   size={size}
+            // />
+            <View style={{ alignItems: "center" }}>
+              {focused && (
+                <View
+                  style={{
+                    width: "60%",
+                    height: 3,
+                    backgroundColor: "#f00036", // Color of the line
+                    position: "absolute",
+                    top: -6, // Adjust spacing above the icon
+                  }}
+                />
+              )}
+              <Fontisto
+                name="bell"
+                color={focused ? "#f00036" : color} // Change color when focused
+                size={size}
+              />
+            </View>
           ),
           headerShown: true,
           headerTitleStyle: {
@@ -73,11 +109,29 @@ const TabNav = () => {
         component={Categoryscreen}
         options={{
           tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons
-              name="add-circle"
-              color={"#f00036"} // Change color when focused
-              size={35}
-            />
+            <View style={{ alignItems: "center" }}>
+              {focused && (
+                <View
+                  style={{
+                    width: "60%",
+                    height: 3,
+                    backgroundColor: "#f00036", // Color of the line
+                    position: "absolute",
+                    top: -2, // Adjust spacing above the icon
+                  }}
+                />
+              )}
+              <Ionicons
+                name="add-circle"
+                color={"#f00036"} // Change color when focused
+                size={35}
+              />
+            </View>
+            // <Ionicons
+            //   name="add-circle"
+            //   color={"#f00036"} // Change color when focused
+            //   size={35}
+            // />
           ),
           headerShown: true,
           headerTitleStyle: {
@@ -97,11 +151,29 @@ const TabNav = () => {
         component={Favoritescreen}
         options={{
           tabBarIcon: ({ color, size, focused }) => (
-            <Ionicons
-              name="chatbubble-outline"
-              color={focused ? "#f00036" : color}
-              size={size}
-            />
+            // <Ionicons
+            //   name="chatbubble-outline"
+            //   color={focused ? "#f00036" : color}
+            //   size={size}
+            // />
+            <View style={{ alignItems: "center" }}>
+              {focused && (
+                <View
+                  style={{
+                    width: "60%",
+                    height: 3,
+                    backgroundColor: "#f00036", // Color of the line
+                    position: "absolute",
+                    top: -6, // Adjust spacing above the icon
+                  }}
+                />
+              )}
+              <Ionicons
+                name="chatbubble-outline"
+                color={focused ? "#f00036" : color}
+                size={size}
+              />
+            </View>
           ),
           headerShown: true,
           headerTitleStyle: {
@@ -121,11 +193,29 @@ const TabNav = () => {
         component={Morescreen}
         options={{
           tabBarIcon: ({ color, size, focused }) => (
-            <AntDesign
-              name="user"
-              color={focused ? "#f00036" : color}
-              size={size}
-            />
+            // <AntDesign
+            //   name="user"
+            //   color={focused ? "#f00036" : color}
+            //   size={size}
+            // />
+            <View style={{ alignItems: "center" }}>
+              {focused && (
+                <View
+                  style={{
+                    width: "60%",
+                    height: 3,
+                    backgroundColor: "#f00036", // Color of the line
+                    position: "absolute",
+                    top: -6, // Adjust spacing above the icon
+                  }}
+                />
+              )}
+              <AntDesign
+                name="user"
+                color={focused ? "#f00036" : color}
+                size={size}
+              />
+            </View>
           ),
           headerShown: false,
           headerTitleStyle: {
