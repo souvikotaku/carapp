@@ -5,13 +5,13 @@ export default class Morescreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text
+        {/* <Text
           style={{
             fontSize: 20,
           }}
         >
           This app is made by Souvik Das
-        </Text>
+        </Text> */}
         <Text
           style={{
             fontSize: 20,

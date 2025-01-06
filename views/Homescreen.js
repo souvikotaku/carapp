@@ -67,10 +67,17 @@ const Homescreen = ({ navigation }) => {
       // </View>
       <View style={styles.prodcarddiv}>
         <TouchableOpacity
-        // onPress={() => {
-        //   dispatch(productId(item?.id));
-        //   navigation.navigate("Details", { item });
-        // }}
+          // onPress={() => {
+          //   dispatch(productId(item?.id));
+          //   navigation.navigate("Details", { item });
+          // }}
+          onPress={() => {
+            if (item.title === "Car Wash") {
+              navigation.navigate("Carwashdetail"); // Replace 'CarWashPage' with your target route
+            } else {
+              alert(`Click on Car Wash option`); // Handle other items or add navigation
+            }
+          }}
         >
           <View>
             <Image source={item?.thumbnail} style={styles.prodimage} />
@@ -295,9 +302,14 @@ const Homescreen = ({ navigation }) => {
           </View>
           <View style={styles.container3}>
             <View
-            // style={{
-            //   marginBottom: 10,
-            // }}
+              style={{
+                // backgroundColor: "pink",
+                flexDirection: "row",
+                alignItems: "center", // Align items vertically in the center
+                justifyContent: "space-between", // Distribute space between the texts
+                paddingHorizontal: 1, // Add some horizontal padding
+                paddingVertical: 5, // Add some vertical padding
+              }}
             >
               <Text
                 style={{
@@ -307,6 +319,16 @@ const Homescreen = ({ navigation }) => {
               >
                 Top Showrooms
               </Text>
+              <TouchableOpacity>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: "#f00036",
+                  }}
+                >
+                  View all
+                </Text>
+              </TouchableOpacity>
             </View>
             <View
               style={
@@ -365,7 +387,7 @@ const Homescreen = ({ navigation }) => {
                           <Text
                             style={{
                               color: "black",
-                              fontSize: 14,
+                              fontSize: 12,
                               fontWeight: "bold",
                             }}
                           >

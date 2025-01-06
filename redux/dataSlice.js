@@ -9,10 +9,14 @@ const dataSlice = createSlice({
     productobjectarraycart: [],
     productobject: {},
     frompage: "",
+    viewAll: [],
   },
   reducers: {
     productId: (state, action) => {
       state.productid = action.payload;
+    },
+    setviewall: (state, action) => {
+      state.viewAll = action.payload;
     },
     productObject: (state, action) => {
       state.productobject = action.payload;
@@ -57,5 +61,6 @@ export const {
   productObjectarraycartremove,
   clearArraycart,
   fromPage,
+  setviewall,
 } = dataSlice.actions;
 export default dataSlice.reducer;

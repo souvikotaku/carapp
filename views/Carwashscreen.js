@@ -8,16 +8,29 @@ import {
   Button,
   FlatList,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Carousel from "react-native-reanimated-carousel";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { Alert } from "react-native";
+import showroom from "./assets/showroom.png";
+import showroom2 from "./assets/showroom2.png";
+import showroom3 from "./assets/showroom3.png";
+import showroom4 from "./assets/showroom4.png";
+import dubai1 from "./assets/dubai1.png";
+import dubai2 from "./assets/dubai2.png";
+
+import showroomicon from "./assets/showroomicon.png";
+import showroomicon2 from "./assets/showroomicon2.png";
+import showroomicon3 from "./assets/showroomicon3.png";
 
 import {
   productObject,
   productObjectarraycartremove,
   clearArraycart,
+  setviewall,
 } from "../redux/dataSlice";
 import { useDispatch } from "react-redux";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -31,7 +44,7 @@ const { width } = Dimensions.get("window");
 
 // import Carousel from "react-native-snap-carousel";
 
-function Cartscreen({ navigation }) {
+function Carwashscreen({ navigation }) {
   const dispatch = useDispatch();
 
   const productId = useSelector((state) => state.data.productid);
@@ -55,6 +68,117 @@ function Cartscreen({ navigation }) {
   const [incart, setIncart] = useState();
   const [priceTotal, setPriceTotal] = useState();
   const [cartData, setCartData] = useState();
+
+  const places = ["Dubai", "Sharjah", "Abu Dhabi"];
+
+  const showrooms = [
+    {
+      place: "Dubai",
+      details: [
+        {
+          id: 1,
+          title: "A Car Wash & D...",
+          thumbnail: showroom2,
+          distance: "1.2 kms away",
+          icon: showroomicon2,
+        },
+        {
+          id: 2,
+          title: "A Car Wash & D...",
+          thumbnail: showroom4,
+          distance: "1.2 kms away",
+          icon: showroomicon2,
+        },
+        {
+          id: 3,
+          title: "A Car Wash & D...",
+          thumbnail: showroom2,
+          distance: "1.2 kms away",
+          icon: showroomicon2,
+        },
+      ],
+      viewAll: [
+        {
+          id: 1,
+          title: "Car Detailing",
+          desc: "Special Discounted Offer For Ceramic Coating At & Interior Detailing With Steam At Home.",
+          location: "Deira, Dubai, United Arab Emirates",
+          postedon: "14/3/24",
+          postedby: "A Car Wash & Detailing",
+          price: "AED 150",
+          thumbnail: dubai1,
+          distance: "1.2 kms away",
+          label: "Premium",
+          icon: showroomicon3,
+        },
+        {
+          id: 2,
+          title: "Car Detailing",
+          desc: "Special Discounted Offer For Ceramic Coating At & Interior Detailing With Steam At Home.",
+          location: "Deira, Dubai, United Arab Emirates",
+          postedon: "14/3/24",
+          postedby: "A Car Wash & Detailing",
+          price: "AED 150",
+          thumbnail: dubai2,
+          distance: "1.2 kms away",
+          label: "Featured",
+          icon: showroomicon3,
+        },
+      ],
+    },
+    {
+      place: "Sharjah",
+      details: [
+        {
+          id: 1,
+          title: "B Car Wash & Detailing",
+          thumbnail: showroom3,
+          distance: "1.2 kms away",
+          icon: showroomicon,
+        },
+        {
+          id: 2,
+          title: "B Car Wash & Detailing",
+          thumbnail: showroom3,
+          distance: "1.2 kms away",
+          icon: showroomicon,
+        },
+        {
+          id: 3,
+          title: "B Car Wash & Detailing",
+          thumbnail: showroom3,
+          distance: "1.2 kms away",
+          icon: showroomicon,
+        },
+      ],
+    },
+    {
+      place: "Abu Dhabi",
+      details: [
+        {
+          id: 1,
+          title: "Toyota Motors",
+          thumbnail: showroom4,
+          distance: "1.2 kms away",
+          icon: showroomicon,
+        },
+        {
+          id: 2,
+          title: "Toyota Motors",
+          thumbnail: showroom2,
+          distance: "1.2 kms away",
+          icon: showroomicon,
+        },
+        {
+          id: 3,
+          title: "Toyota Motors",
+          thumbnail: showroom4,
+          distance: "1.2 kms away",
+          icon: showroomicon,
+        },
+      ],
+    },
+  ];
 
   const Item = ({ title, item }) => (
     // <View style={styles.item}>
@@ -380,29 +504,27 @@ function Cartscreen({ navigation }) {
             <View
               style={{
                 paddingLeft: "5%",
-                paddingRight: "5%",
+                paddingRight: "1%",
                 marginTop: "4%",
               }}
             >
               <TouchableOpacity
                 style={{
-                  backgroundColor: "#F8F9FB",
+                  // backgroundColor: "#F8F9FB",
                   width: 35,
                   height: 35,
                   alignItems: "center",
                   justifyContent: "center",
-                  borderRadius: 70,
-                  elevation: 5,
-                  shadowColor: "black",
+                  // borderRadius: 70,
+                  // elevation: 5,
+                  // shadowColor: "black",
                 }}
                 onPress={() => {
-                  frompage && frompage === "Home"
-                    ? navigation.navigate("Home")
-                    : navigation.navigate("Details");
+                  navigation.navigate("Home");
                 }}
               >
-                <MaterialIcons
-                  name="keyboard-arrow-left"
+                <MaterialCommunityIcons
+                  name="arrow-left"
                   color={"black"}
                   size={30}
                 />
@@ -419,150 +541,260 @@ function Cartscreen({ navigation }) {
             >
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 20,
+                  fontWeight: "bold",
                 }}
               >
-                {`Shopping Cart (${cartData?.length})`}
+                {`Car Wash & Detailing`}
               </Text>
             </View>
           </View>
-          <View
+
+          <ScrollView
             style={{
               paddingLeft: "5%",
               paddingRight: "5%",
+              marginBottom: 50,
             }}
           >
-            {/* {console.log("cartdata", cartData)} */}
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              style={{
-                paddingTop: 10,
-              }}
-              // numColumns={2}
-              // data={productArrayreduxcart && productArrayreduxcart}
-              data={cartData && cartData}
-              // horizontal={true}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
-            />
-          </View>
+            {showrooms?.map((item, index) => (
+              <View
+                style={{ ...styles.container3, marginTop: index === 0 && 20 }}
+                key={index}
+              >
+                <View
+                  style={{
+                    // backgroundColor: "pink",
+                    flexDirection: "row",
+                    alignItems: "center", // Align items vertically in the center
+                    justifyContent: "space-between", // Distribute space between the texts
+                    paddingHorizontal: 1, // Add some horizontal padding
+                    paddingVertical: 5, // Add some vertical padding
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {item.place}
+                  </Text>
+                  <TouchableOpacity>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        color: "#f00036",
+                      }}
+                      onPress={() => {
+                        if (index === 0) {
+                          navigation.navigate("Details"); // Replace 'CarWashPage' with your target route
+                          dispatch(setviewall(item?.viewAll));
+                        } else {
+                          alert(`Click on View All of Dubai`); // Handle other items or add navigation
+                        }
+                      }}
+                    >
+                      View all
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <View
+                  style={
+                    {
+                      // backgroundColor: "red",
+                      // height: "100%",
+                    }
+                  }
+                >
+                  <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                  >
+                    {item?.details?.map((item, index2) => (
+                      <View
+                        key={index2}
+                        style={{
+                          width: 170,
+                          // height: 300,
+                          // paddingLeft: 7,
+                          // paddingRight: 7,
+                          // backgroundColor: index === 0 ? "pink" : null,
+                        }}
+                      >
+                        <TouchableOpacity>
+                          <Image
+                            source={item.thumbnail}
+                            // style={{ width: "100%", height: 250 }}
+                            style={{
+                              margin: "auto",
+                              height: "92%",
+                              width: "92%",
+                              objectFit: "contain",
+                              marginTop: -12,
+                            }}
+                          />
+
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              alignItems: "center",
+                              marginTop: -25,
+                            }}
+                          >
+                            {index !== 1 && (
+                              <Image
+                                source={item.icon}
+                                style={{
+                                  height: 40,
+                                  width: 40,
+                                  marginRight: 8,
+                                  marginLeft: 8,
+                                  borderRadius: 5,
+                                }}
+                              />
+                            )}
+
+                            <View>
+                              <Text
+                                style={{
+                                  color: "black",
+                                  fontSize: 12,
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {item.title}
+                              </Text>
+                              <Text style={{ color: "black", fontSize: 12 }}>
+                                {item.distance}
+                              </Text>
+                            </View>
+                          </View>
+                        </TouchableOpacity>
+                      </View>
+                    ))}
+                  </ScrollView>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
         </View>
-        {cartData?.length > 0 ? (
+        {/* {cartData?.length > 0 ? ( */}
+        {/* <View
+          style={{
+            // backgroundColor: "yellow",
+            // height: "50%",
+            paddingLeft: "5%",
+            paddingRight: "5%",
+          }}
+        >
           <View
             style={{
-              // backgroundColor: "yellow",
-              // height: "50%",
-              paddingLeft: "5%",
-              paddingRight: "5%",
+              backgroundColor: "#F8F9FB",
+              borderTopLeftRadius: 30,
+              borderTopRightRadius: 30,
+              elevation: 5,
+              shadowColor: "black",
             }}
           >
             <View
               style={{
-                backgroundColor: "#F8F9FB",
-                borderTopLeftRadius: 30,
-                borderTopRightRadius: 30,
-                elevation: 5,
-                shadowColor: "black",
+                flexDirection: "row",
+                // backgroundColor: "red",
+                padding: "10%",
+                paddingBottom: "5%",
+                justifyContent: "space-between",
               }}
             >
-              <View
+              <Text
                 style={{
-                  flexDirection: "row",
-                  // backgroundColor: "red",
-                  padding: "10%",
-                  paddingBottom: "5%",
-                  justifyContent: "space-between",
+                  color: "#616A7D",
                 }}
               >
-                <Text
-                  style={{
-                    color: "#616A7D",
-                  }}
-                >
-                  Subtotal
-                </Text>
-                <Text>{`$${priceTotal}`}</Text>
-              </View>
-              <View
+                Subtotal
+              </Text>
+              <Text>{`$${priceTotal}`}</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                // backgroundColor: "red",
+                padding: "10%",
+                paddingTop: "0%",
+                paddingBottom: "5%",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
                 style={{
-                  flexDirection: "row",
-                  // backgroundColor: "red",
-                  padding: "10%",
-                  paddingTop: "0%",
-                  paddingBottom: "5%",
-                  justifyContent: "space-between",
+                  color: "#616A7D",
                 }}
               >
-                <Text
-                  style={{
-                    color: "#616A7D",
-                  }}
-                >
-                  Delivery
-                </Text>
-                <Text>{`$${10}`}</Text>
-              </View>
+                Delivery
+              </Text>
+              <Text>{`$${10}`}</Text>
+            </View>
 
-              <View
+            <View
+              style={{
+                flexDirection: "row",
+                // backgroundColor: "red",
+                padding: "10%",
+                paddingTop: "0%",
+                paddingBottom: "5%",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
                 style={{
-                  flexDirection: "row",
-                  // backgroundColor: "red",
-                  padding: "10%",
-                  paddingTop: "0%",
-                  paddingBottom: "5%",
-                  justifyContent: "space-between",
+                  color: "#616A7D",
                 }}
               >
-                <Text
-                  style={{
-                    color: "#616A7D",
-                  }}
-                >
-                  Total
-                </Text>
-                <Text>{`$${priceTotal + 10}`}</Text>
-              </View>
-              <View
-                style={{
-                  paddingTop: 20,
-                  paddingLeft: "6%",
-                  paddingRight: "6%",
-                  paddingBottom: "7%",
-                  // textAlign: "center",
-                  // backgroundColor: "pink",
-                  flexDirection: "row",
-                  width: "100%",
-                  // justifyContent: "space-between",
-                }}
-              >
-                <TouchableOpacity
-                  style={styles.button2}
-                  onPress={() => {
-                    Alert.alert("Thanks ", "for the purchase", [
-                      // {
-                      //   text: "Ask me later",
-                      //   onPress: () => console.log("Ask me later pressed"),
-                      // },
-                      // {
-                      //   text: "Cancel",
-                      //   onPress: () => console.log("Cancel Pressed"),
-                      //   style: "cancel",
-                      // },
-                      {
-                        text: "OK",
-                        onPress: () => {
-                          navigation.navigate("Home");
-                        },
+                Total
+              </Text>
+              <Text>{`$${priceTotal + 10}`}</Text>
+            </View>
+            <View
+              style={{
+                paddingTop: 20,
+                paddingLeft: "6%",
+                paddingRight: "6%",
+                paddingBottom: "7%",
+                // textAlign: "center",
+                // backgroundColor: "pink",
+                flexDirection: "row",
+                width: "100%",
+                // justifyContent: "space-between",
+              }}
+            >
+              <TouchableOpacity
+                style={styles.button2}
+                onPress={() => {
+                  Alert.alert("Thanks ", "for the purchase", [
+                    // {
+                    //   text: "Ask me later",
+                    //   onPress: () => console.log("Ask me later pressed"),
+                    // },
+                    // {
+                    //   text: "Cancel",
+                    //   onPress: () => console.log("Cancel Pressed"),
+                    //   style: "cancel",
+                    // },
+                    {
+                      text: "OK",
+                      onPress: () => {
+                        navigation.navigate("Home");
                       },
-                    ]);
-                  }}
-                >
-                  <Text style={styles.text2}>{"Proceed To checkout"}</Text>
-                </TouchableOpacity>
-              </View>
+                    },
+                  ]);
+                }}
+              >
+                <Text style={styles.text2}>{"Proceed To checkout"}</Text>
+              </TouchableOpacity>
             </View>
           </View>
-        ) : (
+        </View> */}
+        {/* ) : (
           <>
             <Image
               source={require("./assets/pika.png")}
@@ -580,14 +812,14 @@ function Cartscreen({ navigation }) {
               </Text>
             </View>
           </>
-        )}
+        )} */}
       </View>
       <Toast />
     </View>
   );
 }
 
-export default Cartscreen;
+export default Carwashscreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -636,6 +868,19 @@ const styles = StyleSheet.create({
     paddingTop: 4,
     paddingBottom: 4,
     borderRadius: 70,
+  },
+  container3: {
+    // backgroundColor: "yellow",
+
+    // flex: 1,
+    // marginTop: 20,
+    marginBottom: "8%",
+    // paddingBottom: 5,
+    // paddingLeft: 5,
+    // paddingRight: 5,
+    // backgroundColor: "pink",
+    width: "100%",
+    height: 210,
   },
   pricetext2: {
     fontSize: 12,
