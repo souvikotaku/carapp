@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import Carousel from "react-native-reanimated-carousel";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import AntDesign from "react-native-vector-icons/AntDesign";
 import { Alert } from "react-native";
 import showroom from "./assets/showroom.png";
 import showroom2 from "./assets/showroom2.png";
@@ -49,6 +50,7 @@ function Detailscreen({ navigation }) {
   const productId = useSelector((state) => state.data.productid);
   const frompage = useSelector((state) => state.data.frompage);
   const viewAlldata = useSelector((state) => state.data.viewAll);
+  const placedata = useSelector((state) => state.data.place);
   const productArrayredux = useSelector(
     (state) => state.data.productobjectarray
   );
@@ -68,6 +70,7 @@ function Detailscreen({ navigation }) {
   const [incart, setIncart] = useState();
   const [priceTotal, setPriceTotal] = useState();
   const [cartData, setCartData] = useState();
+  const [clickedHearts, setClickedHearts] = useState({}); // Object to track heart states by index
 
   const Item = ({ title, item }) => (
     // <View style={styles.item}>
@@ -294,65 +297,6 @@ function Detailscreen({ navigation }) {
     // }
   };
 
-  useEffect(() => {
-    function itemExistsinfavorite(id) {
-      return productArrayredux.some(function (el) {
-        return el.id === id;
-      });
-    }
-    itemExistsinfavorite(productId);
-    // console.log("itemExistsinfavorite", itemExistsinfavorite(productId));
-    if (itemExistsinfavorite(productId) === true) {
-      setFavorites(true);
-    } else {
-      setFavorites(false);
-    }
-
-    function itemExistsincart(id) {
-      return productArrayreduxcart.some(function (el) {
-        return el.id === id;
-      });
-    }
-    itemExistsincart(productId);
-    // console.log("itemExistsinfavorite", itemExistsinfavorite(productId));
-    if (itemExistsincart(productId) === true) {
-      setIncart(true);
-    } else {
-      setIncart(false);
-    }
-
-    const priceArray = [];
-    productArrayreduxcart.map((item) => {
-      //   dispatch(priceAddedcart(item?.price));
-
-      const objnew = {
-        id: item.id,
-        price: item.price,
-        prices: [item?.price],
-      };
-      priceArray.push(objnew);
-    });
-
-    // console.log("priceArray", priceArray);
-    // const sumTotal = priceArray?.reduce((acc, obj) => acc + obj?.price, 0);
-
-    const totalPrice = priceArray.reduce((acc, obj) => {
-      const priceSum = obj.prices.reduce((sum, value) => sum + value, 0);
-      return acc + priceSum;
-    }, 0);
-    setPriceTotal(totalPrice);
-
-    const newData = productArrayreduxcart.map((item) => ({
-      ...item,
-      //   prices: [item.price],
-      prices: [item?.price],
-    }));
-
-    // Update the state with the new data
-    // console.log("added price data: ", newData);
-    setCartData(newData);
-  }, []);
-
   // useEffect(() => {
   //   function itemExistsincart(id) {
   //     return productArrayreduxcart.some(function (el) {
@@ -367,6 +311,13 @@ function Detailscreen({ navigation }) {
   //     setIncart(false);
   //   }
   // }, []);
+
+  const toggleHeart = (index) => {
+    setClickedHearts((prev) => ({
+      ...prev,
+      [index]: !prev[index], // Toggle the heart for the specific index
+    }));
+  };
 
   return (
     <View style={styles.container}>
@@ -434,7 +385,7 @@ function Detailscreen({ navigation }) {
                   fontWeight: "bold",
                 }}
               >
-                {`Dubai`}
+                {placedata}
               </Text>
             </View>
           </View>
@@ -454,8 +405,9 @@ function Detailscreen({ navigation }) {
                 fontSize: 16,
               }}
             >
-              Showing <Text style={{ color: "#f00036" }}>200</Text> results in
-              Dubai
+              Showing{" "}
+              <Text style={{ color: "#f00036" }}>{viewAlldata?.length}</Text>{" "}
+              results in Dubai
             </Text>
           </View>
 
@@ -473,15 +425,14 @@ function Detailscreen({ navigation }) {
                 <View>
                   <Image
                     source={item.thumbnail}
-                    // style={{ width: "100%", height: 250 }}
                     style={{
                       margin: "auto",
-                      // height: "92%",
+                      height: 220,
                       width: "100%",
                       borderRadius: 10,
-                      // objectFit: "contain",
                     }}
                   />
+                  {/* Label */}
                   <View
                     style={
                       index === 0 ? styles.premiumLabel : styles.featuredLabel
@@ -489,7 +440,24 @@ function Detailscreen({ navigation }) {
                   >
                     <Text style={styles.premiumText}>{item.label}</Text>
                   </View>
+                  {/* Buttons */}
+                  <View style={styles.iconContainer}>
+                    <TouchableOpacity style={styles.shareButton}>
+                      <AntDesign name="sharealt" color={"white"} size={20} />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.heartButton}
+                      onPress={() => toggleHeart(index)} // Toggle heart state for this index
+                    >
+                      <AntDesign
+                        name={clickedHearts[index] ? "heart" : "hearto"} // Check heart state for this index
+                        color={clickedHearts[index] ? "red" : "white"}
+                        size={20}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
+
                 <View
                   style={{
                     paddingTop: "3%",
@@ -1178,6 +1146,23 @@ const styles = StyleSheet.create({
     paddingTop: 40,
 
     // width: "100%",
+  },
+  iconContainer: {
+    position: "absolute",
+    top: 10, // Adjust the vertical position
+    right: 10, // Adjust the horizontal position
+    flexDirection: "row",
+    gap: 10,
+  },
+  shareButton: {
+    // backgroundColor: "rgba(0,0,0,0.5)", // Semi-transparent background
+    padding: 4,
+    borderRadius: 20,
+  },
+  heartButton: {
+    // backgroundColor: "rgba(0,0,0,0.5)", // Semi-transparent background
+    padding: 4,
+    borderRadius: 20,
   },
   detailheader: {
     fontSize: 50,

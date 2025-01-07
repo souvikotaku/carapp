@@ -31,6 +31,7 @@ import {
   productObjectarraycartremove,
   clearArraycart,
   setviewall,
+  setplace,
 } from "../redux/dataSlice";
 import { useDispatch } from "react-redux";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -124,6 +125,19 @@ function Carwashscreen({ navigation }) {
           label: "Featured",
           icon: showroomicon3,
         },
+        {
+          id: 3,
+          title: "Car Detailing",
+          desc: "Special Discounted Offer For Ceramic Coating At & Interior Detailing With Steam At Home.",
+          location: "Deira, Dubai, United Arab Emirates",
+          postedon: "14/3/24",
+          postedby: "A Car Wash & Detailing",
+          price: "AED 150",
+          thumbnail: dubai1,
+          distance: "1.2 kms away",
+          label: "Featured",
+          icon: showroomicon3,
+        },
       ],
     },
     {
@@ -151,6 +165,47 @@ function Carwashscreen({ navigation }) {
           icon: showroomicon,
         },
       ],
+      viewAll: [
+        {
+          id: 1,
+          title: "Car Detailing",
+          desc: "Special Discounted Offer For Ceramic Coating At & Interior Detailing With Steam At Home.",
+          location: "Deira, Dubai, United Arab Emirates",
+          postedon: "14/3/24",
+          postedby: "B Car Wash & Detailing",
+          price: "AED 150",
+          thumbnail: showroom3,
+          distance: "1.2 kms away",
+          label: "Premium",
+          icon: showroomicon,
+        },
+        {
+          id: 2,
+          title: "Car Detailing",
+          desc: "Special Discounted Offer For Ceramic Coating At & Interior Detailing With Steam At Home.",
+          location: "Deira, Dubai, United Arab Emirates",
+          postedon: "14/3/24",
+          postedby: "B Car Wash & Detailing",
+          price: "AED 150",
+          thumbnail: showroom3,
+          distance: "1.2 kms away",
+          label: "Featured",
+          icon: showroomicon,
+        },
+        {
+          id: 3,
+          title: "Car Detailing",
+          desc: "Special Discounted Offer For Ceramic Coating At & Interior Detailing With Steam At Home.",
+          location: "Deira, Dubai, United Arab Emirates",
+          postedon: "14/3/24",
+          postedby: "B Car Wash & Detailing",
+          price: "AED 150",
+          thumbnail: showroom3,
+          distance: "1.2 kms away",
+          label: "Featured",
+          icon: showroomicon,
+        },
+      ],
     },
     {
       place: "Abu Dhabi",
@@ -174,6 +229,47 @@ function Carwashscreen({ navigation }) {
           title: "Toyota Motors",
           thumbnail: showroom4,
           distance: "1.2 kms away",
+          icon: showroomicon,
+        },
+      ],
+      viewAll: [
+        {
+          id: 1,
+          title: "Car Detailing",
+          desc: "Special Discounted Offer For Ceramic Coating At & Interior Detailing With Steam At Home.",
+          location: "Deira, Dubai, United Arab Emirates",
+          postedon: "14/3/24",
+          postedby: "Toyota Motors",
+          price: "AED 150",
+          thumbnail: dubai2,
+          distance: "1.2 kms away",
+          label: "Premium",
+          icon: showroomicon,
+        },
+        {
+          id: 2,
+          title: "Car Detailing",
+          desc: "Special Discounted Offer For Ceramic Coating At & Interior Detailing With Steam At Home.",
+          location: "Deira, Dubai, United Arab Emirates",
+          postedon: "14/3/24",
+          postedby: "Toyota Motors",
+          price: "AED 150",
+          thumbnail: dubai1,
+          distance: "1.2 kms away",
+          label: "Featured",
+          icon: showroomicon,
+        },
+        {
+          id: 3,
+          title: "Car Detailing",
+          desc: "Special Discounted Offer For Ceramic Coating At & Interior Detailing With Steam At Home.",
+          location: "Deira, Dubai, United Arab Emirates",
+          postedon: "14/3/24",
+          postedby: "Toyota Motors",
+          price: "AED 150",
+          thumbnail: dubai2,
+          distance: "1.2 kms away",
+          label: "Featured",
           icon: showroomicon,
         },
       ],
@@ -405,65 +501,6 @@ function Carwashscreen({ navigation }) {
     // }
   };
 
-  useEffect(() => {
-    function itemExistsinfavorite(id) {
-      return productArrayredux.some(function (el) {
-        return el.id === id;
-      });
-    }
-    itemExistsinfavorite(productId);
-    // console.log("itemExistsinfavorite", itemExistsinfavorite(productId));
-    if (itemExistsinfavorite(productId) === true) {
-      setFavorites(true);
-    } else {
-      setFavorites(false);
-    }
-
-    function itemExistsincart(id) {
-      return productArrayreduxcart.some(function (el) {
-        return el.id === id;
-      });
-    }
-    itemExistsincart(productId);
-    // console.log("itemExistsinfavorite", itemExistsinfavorite(productId));
-    if (itemExistsincart(productId) === true) {
-      setIncart(true);
-    } else {
-      setIncart(false);
-    }
-
-    const priceArray = [];
-    productArrayreduxcart.map((item) => {
-      //   dispatch(priceAddedcart(item?.price));
-
-      const objnew = {
-        id: item.id,
-        price: item.price,
-        prices: [item?.price],
-      };
-      priceArray.push(objnew);
-    });
-
-    // console.log("priceArray", priceArray);
-    // const sumTotal = priceArray?.reduce((acc, obj) => acc + obj?.price, 0);
-
-    const totalPrice = priceArray.reduce((acc, obj) => {
-      const priceSum = obj.prices.reduce((sum, value) => sum + value, 0);
-      return acc + priceSum;
-    }, 0);
-    setPriceTotal(totalPrice);
-
-    const newData = productArrayreduxcart.map((item) => ({
-      ...item,
-      //   prices: [item.price],
-      prices: [item?.price],
-    }));
-
-    // Update the state with the new data
-    // console.log("added price data: ", newData);
-    setCartData(newData);
-  }, []);
-
   // useEffect(() => {
   //   function itemExistsincart(id) {
   //     return productArrayreduxcart.some(function (el) {
@@ -587,12 +624,13 @@ function Carwashscreen({ navigation }) {
                         color: "#f00036",
                       }}
                       onPress={() => {
-                        if (index === 0) {
-                          navigation.navigate("Details"); // Replace 'CarWashPage' with your target route
-                          dispatch(setviewall(item?.viewAll));
-                        } else {
-                          alert(`Click on View All of Dubai`); // Handle other items or add navigation
-                        }
+                        // if (index === 0) {
+                        navigation.navigate("Details"); // Replace 'CarWashPage' with your target route
+                        dispatch(setviewall(item?.viewAll));
+                        dispatch(setplace(item?.place));
+                        // } else {
+                        //   alert(`Click on View All of Dubai`); // Handle other items or add navigation
+                        // }
                       }}
                     >
                       View all
