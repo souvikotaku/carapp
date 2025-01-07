@@ -6,7 +6,7 @@ import Booking from "./views/Booking";
 import Payment from "./views/Payment";
 import Carwashscreen from "./views/Carwashscreen";
 import Profilescreen from "./views/Profilescreen";
-import Categoryscreen from "./views/Categoryscreen";
+import Activityscreen from "./views/Activityscreen";
 import Favoritescreen from "./views/Favoritescreen";
 import Morescreen from "./views/Morescreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -36,131 +36,67 @@ const HomeStack = () => {
     </Stack.Navigator>
   );
 };
-// const TabNav = () => {
-//   return (
-//     <Tab.Navigator
-//       screenOptions={{
-//         headerShown: false,
-//         tabBarActiveTintColor: "#f00036",
-//       }}
-//     >
-//       <Tab.Screen
-//         name="Home"
-//         component={Homescreen}
-//         options={{
-//           tabBarIcon: ({ color, size, focused }) => (
-//             <View style={{ alignItems: "center" }}>
-//               {focused && (
-//                 <View
-//                   style={{
-//                     width: "60%",
-//                     height: 3,
-//                     backgroundColor: "#f00036",
-//                     position: "absolute",
-//                     top: -6,
-//                   }}
-//                 />
-//               )}
-//               <Feather
-//                 name="home"
-//                 color={focused ? "#f00036" : color}
-//                 size={size}
-//               />
-//             </View>
-//           ),
-//         }}
-//       />
-//       <Tab.Screen
-//         name="Activity"
-//         component={Categoryscreen}
-//         options={{
-//           tabBarIcon: ({ color, size, focused }) => (
-//             <View style={{ alignItems: "center" }}>
-//               {focused && (
-//                 <View
-//                   style={{
-//                     width: "60%",
-//                     height: 3,
-//                     backgroundColor: "#f00036",
-//                     position: "absolute",
-//                     top: -6,
-//                   }}
-//                 />
-//               )}
-//               <Fontisto
-//                 name="bell"
-//                 color={focused ? "#f00036" : color}
-//                 size={size}
-//               />
-//             </View>
-//           ),
-//         }}
-//       />
-//       <Tab.Screen
-//         name="Post"
-//         component={Categoryscreen}
-//         options={{
-//           tabBarIcon: ({ color, size }) => (
-//             <Ionicons name="add-circle" color={"#f00036"} size={35} />
-//           ),
-//         }}
-//       />
-//       <Tab.Screen
-//         name="Chat"
-//         component={Favoritescreen}
-//         options={{
-//           tabBarIcon: ({ color, size, focused }) => (
-//             <View style={{ alignItems: "center" }}>
-//               {focused && (
-//                 <View
-//                   style={{
-//                     width: "60%",
-//                     height: 3,
-//                     backgroundColor: "#f00036",
-//                     position: "absolute",
-//                     top: -6,
-//                   }}
-//                 />
-//               )}
-//               <Ionicons
-//                 name="chatbubble-outline"
-//                 color={focused ? "#f00036" : color}
-//                 size={size}
-//               />
-//             </View>
-//           ),
-//         }}
-//       />
-//       <Tab.Screen
-//         name="User"
-//         component={Morescreen}
-//         options={{
-//           tabBarIcon: ({ color, size, focused }) => (
-//             <View style={{ alignItems: "center" }}>
-//               {focused && (
-//                 <View
-//                   style={{
-//                     width: "60%",
-//                     height: 3,
-//                     backgroundColor: "#f00036",
-//                     position: "absolute",
-//                     top: -6,
-//                   }}
-//                 />
-//               )}
-//               <AntDesign
-//                 name="user"
-//                 color={focused ? "#f00036" : color}
-//                 size={size}
-//               />
-//             </View>
-//           ),
-//         }}
-//       />
-//     </Tab.Navigator>
-//   );
-// };
+const ActivityStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="ActivityScreen"
+        component={Activityscreen}
+        options={{
+          title: "Activity", // Header title
+          headerStyle: {
+            backgroundColor: "#f8f8f8",
+          },
+          headerTintColor: "#333", // Header text color
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+const PostStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="ActivityScreen"
+        component={Activityscreen}
+        options={{
+          title: "Posts", // Header title
+          headerStyle: {
+            backgroundColor: "#f8f8f8",
+          },
+          headerTintColor: "#333", // Header text color
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
+const ChatStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="ActivityScreen"
+        component={Activityscreen}
+        options={{
+          title: "Chats", // Header title
+          headerStyle: {
+            backgroundColor: "#f8f8f8",
+          },
+          headerTintColor: "#333", // Header text color
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 const TabNav = () => {
   return (
     <Tab.Navigator
@@ -198,7 +134,8 @@ const TabNav = () => {
       />
       <Tab.Screen
         name="Activity"
-        component={Categoryscreen}
+        // component={Categoryscreen}
+        component={ActivityStack}
         options={{
           tabBarIcon: ({ color, size, focused }) => (
             <View style={{ alignItems: "center" }}>
@@ -224,7 +161,7 @@ const TabNav = () => {
       />
       <Tab.Screen
         name="Post"
-        component={Categoryscreen}
+        component={PostStack}
         options={{
           tabBarIcon: ({ color, size, focused }) => (
             <View style={{ alignItems: "center" }}>
@@ -246,7 +183,7 @@ const TabNav = () => {
       />
       <Tab.Screen
         name="Chat"
-        component={Favoritescreen}
+        component={ChatStack}
         options={{
           tabBarIcon: ({ color, size, focused }) => (
             <View style={{ alignItems: "center" }}>

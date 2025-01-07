@@ -17,7 +17,7 @@ export default class Morescreen extends Component {
             fontSize: 20,
           }}
         >
-          souvikdasotaku@gmail.com
+          made by souvik das
         </Text>
       </View>
     );

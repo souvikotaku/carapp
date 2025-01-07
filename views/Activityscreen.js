@@ -13,7 +13,7 @@ import axios from "axios";
 import { productId } from "../redux/dataSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const Categoryscreen = ({ navigation }) => {
+const Activityscreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const productArrayfavoriteredux = useSelector(
     (state) => state.data.productobjectarray
@@ -88,7 +88,7 @@ const Categoryscreen = ({ navigation }) => {
             fontSize: 20,
           }}
         >
-          No Categories
+          No Data
         </Text>
       </View>
       {/* </>
@@ -100,7 +100,7 @@ const Categoryscreen = ({ navigation }) => {
   );
 };
 
-export default Categoryscreen;
+export default Activityscreen;
 
 const styles = StyleSheet.create({
   container: {
