@@ -21,11 +21,7 @@ import profilepic from "./assets/profilepic.png";
 
 import { LinearGradient } from "expo-linear-gradient"; // For gradient button
 
-import {
-  productObject,
-  productObjectarraycartremove,
-  clearArraycart,
-} from "../redux/dataSlice";
+import { setbookingdata } from "../redux/dataSlice";
 import { useDispatch } from "react-redux";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Feather from "react-native-vector-icons/Feather";
@@ -423,6 +419,10 @@ function Profilescreen({ navigation }) {
                         width: "48%",
                         marginTop: 15,
                       }}
+                      onPress={() => {
+                        dispatch(setbookingdata(item));
+                        navigation.navigate("Booking");
+                      }}
                     >
                       <LinearGradient
                         colors={["#ff7e5f", "#fd267d"]} // Gradient only if 'showabout' is false
@@ -436,7 +436,7 @@ function Profilescreen({ navigation }) {
                             color: "white",
                           }}
                         >
-                          Book
+                          Book Now
                         </Text>
                       </LinearGradient>
                     </TouchableOpacity>

@@ -115,7 +115,7 @@ function Carwashscreen({ navigation }) {
         {
           id: 2,
           title: "Car Wash",
-          desc: "Special Discounted Offer For Ceramic Coating At & Interior Detailing With Steam At Home.",
+          desc: "Special Discounted Offer For Car Wash & Car Wash Premium with Steam At Home.",
           location: "Deira, Dubai, United Arab Emirates",
           postedon: "14/3/24",
           postedby: "A Car Wash & Detailing",
@@ -236,7 +236,7 @@ function Carwashscreen({ navigation }) {
         {
           id: 1,
           title: "Car Wash",
-          desc: "Special Discounted Offer For Ceramic Coating At & Interior Detailing With Steam At Home.",
+          desc: "Special Discounted Offer For Car Wash & Car Wash Premium with Steam At Home.",
           location: "Deira, Dubai, United Arab Emirates",
           postedon: "14/3/24",
           postedby: "Toyota Motors",
@@ -262,7 +262,7 @@ function Carwashscreen({ navigation }) {
         {
           id: 3,
           title: "Car Wash",
-          desc: "Special Discounted Offer For Ceramic Coating At & Interior Detailing With Steam At Home.",
+          desc: "Special Discounted Offer For Car Wash & Car Wash Premium with Steam At Home.",
           location: "Deira, Dubai, United Arab Emirates",
           postedon: "14/3/24",
           postedby: "Toyota Motors",

@@ -6,6 +6,8 @@ const dataSlice = createSlice({
   initialState: {
     place: "",
     viewAll: [],
+    bookingdata: {},
+    paymentdata: {},
   },
   reducers: {
     setviewall: (state, action) => {
@@ -14,8 +16,15 @@ const dataSlice = createSlice({
     setplace: (state, action) => {
       state.place = action.payload;
     },
+    setbookingdata: (state, action) => {
+      state.bookingdata = action.payload;
+    },
+    setpaymentdata: (state, action) => {
+      state.paymentdata = action.payload;
+    },
   },
 });
 
-export const { setplace, setviewall } = dataSlice.actions;
+export const { setplace, setviewall, setbookingdata, setpaymentdata } =
+  dataSlice.actions;
 export default dataSlice.reducer;

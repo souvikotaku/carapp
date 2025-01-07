@@ -2,6 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import Homescreen from "./views/Homescreen";
 import Detailscreen from "./views/Detailscreen";
+import Booking from "./views/Booking";
+import Payment from "./views/Payment";
 import Carwashscreen from "./views/Carwashscreen";
 import Profilescreen from "./views/Profilescreen";
 import Categoryscreen from "./views/Categoryscreen";
@@ -29,6 +31,8 @@ const HomeStack = () => {
       <Stack.Screen name="Details" component={Detailscreen} />
       <Stack.Screen name="Carwashdetail" component={Carwashscreen} />
       <Stack.Screen name="Carwashprofile" component={Profilescreen} />
+      <Stack.Screen name="Booking" component={Booking} />
+      <Stack.Screen name="Payment" component={Payment} />
     </Stack.Navigator>
   );
 };
