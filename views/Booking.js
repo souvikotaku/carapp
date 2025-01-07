@@ -21,11 +21,7 @@ import profilepic from "./assets/profilepic.png";
 
 import { LinearGradient } from "expo-linear-gradient"; // For gradient button
 
-import {
-  productObject,
-  productObjectarraycartremove,
-  clearArraycart,
-} from "../redux/dataSlice";
+import { setconfirmdata } from "../redux/dataSlice";
 import { useDispatch } from "react-redux";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Feather from "react-native-vector-icons/Feather";
@@ -55,9 +51,13 @@ function Bookingscreen({ navigation }) {
   const [selectedLocation, setSelectedLocation] = useState(
     "Perfect Spot Auto Spa"
   );
+  const [selectedLocation2, setSelectedLocation2] = useState(
+    "Deira, Dubai, United Arab Emirates"
+  );
   const [selectedVehicle, setSelectedVehicle] = useState(
     "Lamborghini Aventador"
   );
+  const [selectedVehicle2, setSelectedVehicle2] = useState("AE 123456");
 
   const toggleHeart = (index) => {
     setClickedHearts((prev) => ({
@@ -226,7 +226,10 @@ function Bookingscreen({ navigation }) {
                     selectedLocation === "Perfect Spot Auto Spa" &&
                       styles.selectedOption,
                   ]}
-                  onPress={() => setSelectedLocation("Perfect Spot Auto Spa")}
+                  onPress={() => {
+                    setSelectedLocation("Perfect Spot Auto Spa");
+                    setSelectedLocation2("Deira, Dubai, United Arab Emirates");
+                  }}
                 >
                   <View style={styles.radioContent}>
                     <View>
@@ -252,13 +255,16 @@ function Bookingscreen({ navigation }) {
                     selectedLocation === "Home Service" &&
                       styles.selectedOption,
                   ]}
-                  onPress={() => setSelectedLocation("Home Service")}
+                  onPress={() => {
+                    setSelectedLocation("Home Service");
+                    setSelectedLocation2("Nasa Bldg. Deira, Dubai, UAE");
+                  }}
                 >
                   <View style={styles.radioContent}>
                     <View>
                       <Text style={styles.radioText}>Home Service</Text>
                       <Text style={styles.radioSubText}>
-                        Saved Address: Nasa Bldg. Deira, Dubai, UAE
+                        Nasa Bldg. Deira, Dubai, UAE
                       </Text>
                     </View>
                     <View style={styles.radioCircle}>
@@ -290,7 +296,10 @@ function Bookingscreen({ navigation }) {
                     selectedVehicle === "Lamborghini Aventador" &&
                       styles.selectedOption,
                   ]}
-                  onPress={() => setSelectedVehicle("Lamborghini Aventador")}
+                  onPress={() => {
+                    setSelectedVehicle("Lamborghini Aventador");
+                    setSelectedVehicle2("AE 123456");
+                  }}
                 >
                   <View style={styles.radioContent}>
                     <View>
@@ -314,7 +323,10 @@ function Bookingscreen({ navigation }) {
                     selectedVehicle === "Nissan Patrol" &&
                       styles.selectedOption,
                   ]}
-                  onPress={() => setSelectedVehicle("Nissan Patrol")}
+                  onPress={() => {
+                    setSelectedVehicle("Nissan Patrol");
+                    setSelectedVehicle2("PLATE 12345");
+                  }}
                 >
                   <View style={styles.radioContent}>
                     <View>
@@ -330,6 +342,15 @@ function Bookingscreen({ navigation }) {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
+                    const bookingobject = {
+                      preflocation: selectedLocation,
+                      preflocationactual: selectedLocation2,
+                      vehicle: selectedVehicle,
+                      vehiclenumber: selectedVehicle2,
+                      date: "3 March 2024 - 4:00 PM",
+                      ...bookingdata,
+                    };
+                    dispatch(setconfirmdata(bookingobject));
                     // dispatch(setbookingdata(item));
                     navigation.navigate("Payment");
                   }}

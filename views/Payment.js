@@ -9,11 +9,13 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
+  Modal,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Carousel from "react-native-reanimated-carousel";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Entypo from "react-native-vector-icons/Entypo";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { Alert } from "react-native";
 import showroom2 from "./assets/showroom2.png";
@@ -34,6 +36,7 @@ import axios from "axios";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import Toast from "react-native-toast-message";
 import profileback from "./assets/profileback.png";
+import confirm from "./assets/confirm.png";
 
 const { width } = Dimensions.get("window");
 
@@ -43,8 +46,8 @@ function Paymentscreen({ navigation }) {
   const dispatch = useDispatch();
 
   const viewAlldata = useSelector((state) => state.data.viewAll);
-  const bookingdata = useSelector((state) => state.data.bookingdata);
-  console.log("bookingdata", bookingdata);
+  const confirmdata = useSelector((state) => state.data.confirmdata);
+  console.log("confirmdata here", confirmdata);
   //   console.log("productArrayreduxcart", productArrayreduxcart);
   // console.log("productArrayobject", productArrayobject);
 
@@ -59,6 +62,16 @@ function Paymentscreen({ navigation }) {
     "Lamborghini Aventador"
   );
 
+  const [isPopupVisible, setPopupVisible] = useState(false);
+
+  const handleConfirmClick = () => {
+    setPopupVisible(true); // Show the popup
+  };
+
+  const closePopup = () => {
+    setPopupVisible(false); // Hide the popup
+    navigation.navigate("Home"); // Navigate to Home
+  };
   const toggleHeart = (index) => {
     setClickedHearts((prev) => ({
       ...prev,
@@ -69,7 +82,7 @@ function Paymentscreen({ navigation }) {
   return (
     <View style={styles.container}>
       {/* <Image source={bookingdata.thumbnail} style={styles.backgroundImage} /> */}
-      <Image
+      {/* <Image
         source={bookingdata.thumbnail}
         style={{
           top: 30,
@@ -79,7 +92,7 @@ function Paymentscreen({ navigation }) {
           width: "100%",
           // borderRadius: 10,
         }}
-      />
+      /> */}
       <View
         style={{
           height: 300,
@@ -109,14 +122,14 @@ function Paymentscreen({ navigation }) {
             >
               <TouchableOpacity
                 style={{
-                  backgroundColor: "#F8F9FB",
+                  //   backgroundColor: "#F8F9FB",
                   width: 35,
                   height: 35,
                   alignItems: "center",
                   justifyContent: "center",
-                  borderRadius: 5,
-                  elevation: 5,
-                  shadowColor: "black",
+                  //   borderRadius: 5,
+                  //   elevation: 5,
+                  //   shadowColor: "black",
                 }}
                 onPress={() => {
                   navigation.navigate("Booking");
@@ -140,7 +153,7 @@ function Paymentscreen({ navigation }) {
             >
               <Text
                 style={{
-                  color: "white",
+                  //   color: "white",
                   fontSize: 20,
                   //   fontWeight: "bold",
                 }}
@@ -152,7 +165,7 @@ function Paymentscreen({ navigation }) {
 
           <View
             style={{
-              marginTop: "44%",
+              marginTop: "5%",
               paddingBottom: "3%",
 
               paddingLeft: "5%",
@@ -163,19 +176,28 @@ function Paymentscreen({ navigation }) {
             <Text
               style={{
                 // marginTop: "1%",
-                fontSize: 16,
+                fontSize: 14,
+                fontWeight: "bold",
               }}
             >
-              {bookingdata?.title}
+              {"Location Details"}
             </Text>
-            <Text
-              style={{
-                marginTop: "2%",
-                fontSize: 12,
-              }}
-            >
-              {bookingdata?.desc}
-            </Text>
+
+            <TouchableOpacity style={styles.dateTimeInputlocation}>
+              <Entypo
+                name="location-pin"
+                size={20}
+                color="#667085"
+                // style={{
+                //   marginLeft: "6%",
+                // }}
+              />
+              <Text
+                style={{ ...styles.dateTimeText, marginLeft: 10, fontSize: 12 }}
+              >
+                {confirmdata.preflocationactual}
+              </Text>
+            </TouchableOpacity>
           </View>
 
           <ScrollView
@@ -184,87 +206,100 @@ function Paymentscreen({ navigation }) {
               // paddingRight: "5%",
               // marginBottom: 430,
               backgroundColor: "#EAECF0",
-              height: "63%",
+              height: "81%",
             }}
           >
             <View
               style={{
                 ...styles.container3,
                 paddingTop: "4%",
-                marginTop: "4%",
-                height: 315,
+                marginTop: "3%",
+                height: 145,
               }}
             >
-              {/* Select Date & Time */}
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Select Date & Time</Text>
-                <TouchableOpacity style={styles.dateTimeInput}>
-                  <Text style={styles.dateTimeText}>
-                    3 March 2024 - 4:00 PM
-                  </Text>
-                  <Ionicons
-                    name="calendar-outline"
-                    size={20}
-                    color="#fd267d"
-                    style={{
-                      marginRight: "6%",
-                    }}
-                  />
-                </TouchableOpacity>
-              </View>
-
               {/* Choose Preferred Location */}
               <View style={styles.section}>
-                <Text style={styles.sectionTitle}>
-                  Please choose preferred location
+                <Text style={{ ...styles.sectionTitle, marginBottom: 10 }}>
+                  Services added
+                </Text>
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginBottom: 10,
+                  }}
+                >
+                  <Image
+                    source={confirmdata.thumbnail}
+                    style={{
+                      height: 80,
+                      width: 80,
+                      marginRight: 10,
+                      borderRadius: 5,
+                    }}
+                  />
+                  <View
+                    style={{
+                      // backgroundColor: "pink",
+                      height: 78,
+                      //   justifyContent: "center",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#475467",
+                        fontSize: 16,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {confirmdata.title}
+                    </Text>
+                    <Text
+                      style={{
+                        color: "#667085",
+                        fontSize: 14,
+                        //   fontWeight: "bold",
+                      }}
+                    >
+                      {confirmdata.price}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                ...styles.container3,
+                paddingTop: "4%",
+                // marginTop: "3%",
+                height: 140,
+              }}
+            >
+              {/* Choose Preferred Location */}
+              <View style={styles.section}>
+                <Text style={{ ...styles.sectionTitle, marginBottom: 10 }}>
+                  Vehicle Details
                 </Text>
 
                 {/* Perfect Spot Auto Spa */}
                 <TouchableOpacity
-                  style={[
-                    styles.radioOption,
-                    selectedLocation === "Perfect Spot Auto Spa" &&
-                      styles.selectedOption,
-                  ]}
-                  onPress={() => setSelectedLocation("Perfect Spot Auto Spa")}
+                  style={{
+                    ...styles.radioOption,
+                    pointerEvents: "none",
+                    backgroundColor: "#FCFCFD",
+                    borderColor: "#D0D5DD",
+                  }}
+                  //   onPress={() => setSelectedVehicle("Lamborghini Aventador")}
                 >
                   <View style={styles.radioContent}>
                     <View>
                       <Text style={styles.radioText}>
-                        Perfect Spot Auto Spa
+                        {confirmdata.vehicle}
                       </Text>
                       <Text style={styles.radioSubText}>
-                        Deira, Dubai, United Arab Emirates
+                        {confirmdata.vehiclenumber}
                       </Text>
-                    </View>
-                    <View style={styles.radioCircle}>
-                      {selectedLocation === "Perfect Spot Auto Spa" && (
-                        <View style={styles.radioInnerCircle} />
-                      )}
-                    </View>
-                  </View>
-                </TouchableOpacity>
-
-                {/* Home Service */}
-                <TouchableOpacity
-                  style={[
-                    styles.radioOption,
-                    selectedLocation === "Home Service" &&
-                      styles.selectedOption,
-                  ]}
-                  onPress={() => setSelectedLocation("Home Service")}
-                >
-                  <View style={styles.radioContent}>
-                    <View>
-                      <Text style={styles.radioText}>Home Service</Text>
-                      <Text style={styles.radioSubText}>
-                        Saved Address: Nasa Bldg. Deira, Dubai, UAE
-                      </Text>
-                    </View>
-                    <View style={styles.radioCircle}>
-                      {selectedLocation === "Home Service" && (
-                        <View style={styles.radioInnerCircle} />
-                      )}
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -274,64 +309,141 @@ function Paymentscreen({ navigation }) {
               style={{
                 ...styles.container3,
                 paddingTop: "4%",
-                height: 275,
+                height: 110,
               }}
             >
-              {/* Choose Preferred Location */}
+              {/* Select Date & Time */}
               <View style={styles.section}>
-                <Text style={styles.sectionTitle}>
-                  Please choose your vehicle
-                </Text>
-
-                {/* Perfect Spot Auto Spa */}
-                <TouchableOpacity
-                  style={[
-                    styles.radioOption,
-                    selectedVehicle === "Lamborghini Aventador" &&
-                      styles.selectedOption,
-                  ]}
-                  onPress={() => setSelectedVehicle("Lamborghini Aventador")}
-                >
-                  <View style={styles.radioContent}>
-                    <View>
-                      <Text style={styles.radioText}>
-                        Lamborghini Aventador
-                      </Text>
-                      <Text style={styles.radioSubText}>AE 123456</Text>
-                    </View>
-                    <View style={styles.radioCircle}>
-                      {selectedVehicle === "Lamborghini Aventador" && (
-                        <View style={styles.radioInnerCircle} />
-                      )}
-                    </View>
-                  </View>
+                <Text style={styles.sectionTitle}>Time & Date</Text>
+                <TouchableOpacity style={styles.dateTimeInput}>
+                  <Text style={styles.dateTimeText}>{confirmdata.date}</Text>
                 </TouchableOpacity>
-
-                {/* Home Service */}
-                <TouchableOpacity
-                  style={[
-                    styles.radioOption,
-                    selectedVehicle === "Nissan Patrol" &&
-                      styles.selectedOption,
-                  ]}
-                  onPress={() => setSelectedVehicle("Nissan Patrol")}
+              </View>
+            </View>
+            <View
+              style={{
+                ...styles.container3,
+                paddingTop: "4%",
+                height: 255,
+              }}
+            >
+              {/* Select Date & Time */}
+              <View style={styles.section}>
+                <Text style={styles.sectionTitle}>Payment Summary</Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    marginTop: 15,
+                  }}
                 >
-                  <View style={styles.radioContent}>
-                    <View>
-                      <Text style={styles.radioText}>Nissan Patrol</Text>
-                      <Text style={styles.radioSubText}>PLATE 12345</Text>
-                    </View>
-                    <View style={styles.radioCircle}>
-                      {selectedVehicle === "Nissan Patrol" && (
-                        <View style={styles.radioInnerCircle} />
-                      )}
-                    </View>
-                  </View>
-                </TouchableOpacity>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: "#667085",
+                    }}
+                  >
+                    Car Recovery
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: "#667085",
+                    }}
+                  >
+                    {confirmdata.price.split(" ").reverse().join(" ")}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    marginTop: 7,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: "#667085",
+                    }}
+                  >
+                    Vat (12%)
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: "#667085",
+                    }}
+                  >
+                    {Math.round(
+                      (12 / 100) *
+                        parseFloat(
+                          confirmdata.price.split(" ").reverse().join(" ")
+                        )
+                    )}{" "}
+                    AED
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    marginTop: 7,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: "#667085",
+                    }}
+                  >
+                    Delivery charges
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: "#667085",
+                    }}
+                  >
+                    0 AED
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    marginTop: 20,
+                  }}
+                >
+                  <Text style={styles.sectionTitle}>Total payable amount</Text>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {[
+                      confirmdata.price.split(" ").reverse().join(" "),
+                      Math.round(
+                        (12 / 100) *
+                          parseFloat(
+                            confirmdata.price.split(" ").reverse().join(" ")
+                          )
+                      ),
+                      "0 AED",
+                    ]
+                      .map((amount) => parseFloat(amount))
+                      .reduce((sum, value) => sum + value, 0)}{" "}
+                    AED
+                  </Text>
+                </View>
+                {/* <TouchableOpacity style={styles.dateTimeInput}>
+                  <Text style={styles.dateTimeText}>{confirmdata.date}</Text>
+                </TouchableOpacity> */}
                 <TouchableOpacity
-                  onPress={() => {
-                    // dispatch(setbookingdata(item));
-                    navigation.navigate("Payment");
+                  onPress={handleConfirmClick}
+                  style={{
+                    marginTop: 20,
                   }}
                 >
                   <LinearGradient
@@ -341,10 +453,71 @@ function Paymentscreen({ navigation }) {
                     style={styles.callButton2}
                   >
                     <View style={styles.iconTextContainer}>
-                      <Text style={styles.callButtonText}>Confirm Booking</Text>
+                      <Text style={styles.callButtonText}>Confirm</Text>
                     </View>
                   </LinearGradient>
                 </TouchableOpacity>
+
+                {/* Popup Modal */}
+                <Modal
+                  transparent={true}
+                  visible={isPopupVisible}
+                  animationType="fade"
+                  onRequestClose={closePopup}
+                >
+                  <View style={styles.popupOverlay}>
+                    <View style={styles.popupContainer}>
+                      <Image
+                        style={{ ...styles.prodimage2, marginTop: -25 }}
+                        source={confirm}
+                      />
+                      <Text
+                        style={{
+                          ...styles.popupText,
+                          fontSize: 24,
+                          marginTop: -45,
+                        }}
+                      >
+                        Congratulations!
+                      </Text>
+                      <Text
+                        style={{
+                          ...styles.popupText,
+                          fontSize: 20,
+                          marginTop: -20,
+                        }}
+                      >
+                        Your ad is now live
+                      </Text>
+                      {/* <TouchableOpacity
+                        onPress={closePopup}
+                        style={styles.popupButton}
+                      >
+                        <Text style={styles.popupButtonText}>See Ad Post</Text>
+                      </TouchableOpacity> */}
+                      <TouchableOpacity
+                        onPress={closePopup}
+                        style={{
+                          width: "100%",
+                          marginTop: -10,
+                        }}
+                      >
+                        <LinearGradient
+                          colors={["#ff7e5f", "#fd267d"]} // Gradient colors
+                          start={{ x: 0, y: 0 }}
+                          end={{ x: 1, y: 0 }}
+                          style={styles.callButton2}
+                        >
+                          <View style={styles.iconTextContainer}>
+                            <Text style={styles.popupButtonText}>
+                              See Ad Post
+                            </Text>
+                          </View>
+                        </LinearGradient>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </Modal>
               </View>
             </View>
           </ScrollView>
@@ -551,7 +724,7 @@ const styles = StyleSheet.create({
     // paddingLeft: "5%",
     // paddingRight: "5%",
     // paddingTop: "5%",
-    marginBottom: "5%",
+    marginBottom: "3%",
     // flex: 1,
     // marginTop: 20,
     // marginBottom: "8%",
@@ -594,17 +767,30 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 14,
     fontWeight: "bold",
-    marginBottom: 10,
   },
   dateTimeInput: {
+    marginTop: 10,
+    pointerEvents: "none",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     padding: 10,
     borderWidth: 1,
-    borderColor: "#FDA29B",
-    borderRadius: 10,
-    backgroundColor: "#FFEEED",
+    borderColor: "#D0D5DD",
+    borderRadius: 8,
+    backgroundColor: "#FCFCFD",
+  },
+  dateTimeInputlocation: {
+    marginTop: 10,
+    pointerEvents: "none",
+    flexDirection: "row",
+    justifyContent: "left",
+    alignItems: "center",
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#D0D5DD",
+    borderRadius: 8,
+    backgroundColor: "#FCFCFD",
   },
   dateTimeText: {
     color: "#333",
@@ -633,6 +819,35 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginRight: 15,
+  },
+  popupOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  popupContainer: {
+    width: "80%",
+    padding: 20,
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    alignItems: "center",
+  },
+  popupText: {
+    fontSize: 18,
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  popupButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: "#fd267d",
+    borderRadius: 5,
+  },
+  popupButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
   radioContent: {
     flexDirection: "row",

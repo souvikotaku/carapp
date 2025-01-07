@@ -113,7 +113,11 @@ function Profilescreen({ navigation }) {
                   shadowColor: "black",
                 }}
                 onPress={() => {
-                  navigation.navigate("Details");
+                  if (frompage && frompage === "carwashscreen") {
+                    navigation.navigate("Carwashdetail");
+                  } else {
+                    navigation.navigate("Details");
+                  }
                 }}
               >
                 <MaterialCommunityIcons

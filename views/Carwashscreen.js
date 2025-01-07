@@ -32,6 +32,7 @@ import {
   clearArraycart,
   setviewall,
   setplace,
+  setfrompage,
 } from "../redux/dataSlice";
 import { useDispatch } from "react-redux";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -106,7 +107,7 @@ function Carwashscreen({ navigation }) {
           location: "Deira, Dubai, United Arab Emirates",
           postedon: "14/3/24",
           postedby: "A Car Wash & Detailing",
-          price: "AED 150",
+          price: "AED 187",
           thumbnail: dubai1,
           distance: "1.2 kms away",
           label: "Premium",
@@ -119,7 +120,7 @@ function Carwashscreen({ navigation }) {
           location: "Deira, Dubai, United Arab Emirates",
           postedon: "14/3/24",
           postedby: "A Car Wash & Detailing",
-          price: "AED 150",
+          price: "AED 200",
           thumbnail: dubai2,
           distance: "1.2 kms away",
           label: "Featured",
@@ -132,7 +133,7 @@ function Carwashscreen({ navigation }) {
           location: "Deira, Dubai, United Arab Emirates",
           postedon: "14/3/24",
           postedby: "A Car Wash & Detailing",
-          price: "AED 150",
+          price: "AED 157",
           thumbnail: dubai1,
           distance: "1.2 kms away",
           label: "Featured",
@@ -186,7 +187,7 @@ function Carwashscreen({ navigation }) {
           location: "Deira, Dubai, United Arab Emirates",
           postedon: "14/3/24",
           postedby: "B Car Wash & Detailing",
-          price: "AED 150",
+          price: "AED 160",
           thumbnail: showroom3,
           distance: "1.2 kms away",
           label: "Featured",
@@ -199,7 +200,7 @@ function Carwashscreen({ navigation }) {
           location: "Deira, Dubai, United Arab Emirates",
           postedon: "14/3/24",
           postedby: "B Car Wash & Detailing",
-          price: "AED 150",
+          price: "AED 170",
           thumbnail: showroom3,
           distance: "1.2 kms away",
           label: "Featured",
@@ -240,7 +241,7 @@ function Carwashscreen({ navigation }) {
           location: "Deira, Dubai, United Arab Emirates",
           postedon: "14/3/24",
           postedby: "Toyota Motors",
-          price: "AED 150",
+          price: "AED 120",
           thumbnail: dubai2,
           distance: "1.2 kms away",
           label: "Premium",
@@ -253,7 +254,7 @@ function Carwashscreen({ navigation }) {
           location: "Deira, Dubai, United Arab Emirates",
           postedon: "14/3/24",
           postedby: "Toyota Motors",
-          price: "AED 150",
+          price: "AED 174",
           thumbnail: dubai1,
           distance: "1.2 kms away",
           label: "Featured",
@@ -649,7 +650,7 @@ function Carwashscreen({ navigation }) {
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                   >
-                    {item?.details?.map((item, index2) => (
+                    {item?.details?.map((item2, index2) => (
                       <View
                         key={index2}
                         style={{
@@ -660,9 +661,16 @@ function Carwashscreen({ navigation }) {
                           // backgroundColor: index === 0 ? "pink" : null,
                         }}
                       >
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() => {
+                            dispatch(setviewall(item?.viewAll));
+                            dispatch(setplace(item?.place));
+                            dispatch(setfrompage("carwashscreen"));
+                            navigation.navigate("Carwashprofile");
+                          }}
+                        >
                           <Image
-                            source={item.thumbnail}
+                            source={item2.thumbnail}
                             // style={{ width: "100%", height: 250 }}
                             style={{
                               margin: "auto",
@@ -682,7 +690,7 @@ function Carwashscreen({ navigation }) {
                           >
                             {index !== 1 && (
                               <Image
-                                source={item.icon}
+                                source={item2.icon}
                                 style={{
                                   height: 40,
                                   width: 40,
@@ -701,10 +709,10 @@ function Carwashscreen({ navigation }) {
                                   fontWeight: "bold",
                                 }}
                               >
-                                {item.title}
+                                {item2.title}
                               </Text>
                               <Text style={{ color: "black", fontSize: 12 }}>
-                                {item.distance}
+                                {item2.distance}
                               </Text>
                             </View>
                           </View>

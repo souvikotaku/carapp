@@ -23,6 +23,7 @@ import {
   productObject,
   productObjectarraycartremove,
   clearArraycart,
+  setfrompage,
 } from "../redux/dataSlice";
 import { useDispatch } from "react-redux";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -198,6 +199,7 @@ function Detailscreen({ navigation }) {
                     <TouchableOpacity
                       style={styles.profileButton}
                       onPress={() => {
+                        dispatch(setfrompage("details"));
                         navigation.navigate("Carwashprofile");
                       }}
                     >

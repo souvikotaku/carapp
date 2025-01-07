@@ -8,6 +8,8 @@ const dataSlice = createSlice({
     viewAll: [],
     bookingdata: {},
     paymentdata: {},
+    confirmdata: {},
+    frompage: "",
   },
   reducers: {
     setviewall: (state, action) => {
@@ -22,9 +24,21 @@ const dataSlice = createSlice({
     setpaymentdata: (state, action) => {
       state.paymentdata = action.payload;
     },
+    setconfirmdata: (state, action) => {
+      state.confirmdata = action.payload;
+    },
+    setfrompage: (state, action) => {
+      state.frompage = action.payload;
+    },
   },
 });
 
-export const { setplace, setviewall, setbookingdata, setpaymentdata } =
-  dataSlice.actions;
+export const {
+  setplace,
+  setviewall,
+  setbookingdata,
+  setpaymentdata,
+  setconfirmdata,
+  setfrompage,
+} = dataSlice.actions;
 export default dataSlice.reducer;
