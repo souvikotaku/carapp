@@ -16,6 +16,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { Alert } from "react-native";
+import showroom2 from "./assets/showroom2.png";
+import profilepic from "./assets/profilepic.png";
 
 import { LinearGradient } from "expo-linear-gradient"; // For gradient button
 
@@ -31,13 +33,13 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import Toast from "react-native-toast-message";
-import dubai1 from "./assets/dubai1.png";
+import profileback from "./assets/profileback.png";
 
 const { width } = Dimensions.get("window");
 
 // import Carousel from "react-native-snap-carousel";
 
-function Detailscreen({ navigation }) {
+function Profilescreen({ navigation }) {
   const dispatch = useDispatch();
 
   const productId = useSelector((state) => state.data.productid);
@@ -74,12 +76,13 @@ function Detailscreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Image source={profileback} style={styles.backgroundImage} />
       <View
         style={{
           height: 300,
           width: "100%",
           flex: 1,
-          //   backgroundColor: "pink",
+          //   backgroundColor: "lightblue",
           justifyContent: "space-between",
         }}
       >
@@ -91,7 +94,7 @@ function Detailscreen({ navigation }) {
           <View
             style={{
               flexDirection: "row",
-              // backgroundColor: "red",
+              marginTop: -10,
             }}
           >
             <View
@@ -103,17 +106,17 @@ function Detailscreen({ navigation }) {
             >
               <TouchableOpacity
                 style={{
-                  // backgroundColor: "#F8F9FB",
+                  backgroundColor: "#F8F9FB",
                   width: 35,
                   height: 35,
                   alignItems: "center",
                   justifyContent: "center",
-                  // borderRadius: 70,
-                  // elevation: 5,
-                  // shadowColor: "black",
+                  borderRadius: 5,
+                  elevation: 5,
+                  shadowColor: "black",
                 }}
                 onPress={() => {
-                  navigation.navigate("Carwashdetail");
+                  navigation.navigate("Details");
                 }}
               >
                 <MaterialCommunityIcons
@@ -134,47 +137,154 @@ function Detailscreen({ navigation }) {
             >
               <Text
                 style={{
+                  color: "white",
                   fontSize: 20,
-                  fontWeight: "bold",
+                  //   fontWeight: "bold",
                 }}
               >
-                {placedata}
+                Profile
               </Text>
             </View>
           </View>
           <View
             style={{
-              marginTop: "4%",
+              marginTop: "37%",
               // paddingBottom: "4%",
 
               paddingLeft: "5%",
               paddingRight: "5%",
+              //   backgroundColor: "pink",
             }}
           >
-            <Text
-              style={{
-                fontFamily: "Nunito",
-                color: "#475467",
-                fontSize: 16,
-              }}
-            >
-              Showing{" "}
-              <Text style={{ color: "#f00036" }}>{viewAlldata?.length}</Text>{" "}
-              results in Dubai
-            </Text>
+            <View style={{ ...styles.containerchatmain }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginBottom: 10,
+                }}
+              >
+                <Image
+                  source={profilepic}
+                  style={{
+                    height: 80,
+                    width: 80,
+                    marginRight: 10,
+                    borderRadius: 5,
+                  }}
+                />
+                <View
+                  style={{
+                    // backgroundColor: "pink",
+                    height: 78,
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#475467",
+                      fontSize: 16,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Perfect Spot Auto Spa
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#667085",
+                      fontSize: 10,
+                      //   fontWeight: "bold",
+                    }}
+                  >
+                    1.2 km away
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#667085",
+                      fontSize: 10,
+                    }}
+                  >
+                    Deira, Dubai, United Arab Emirates
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#667085",
+                      fontSize: 10,
+                      //   fontWeight: "bold",
+                    }}
+                  >
+                    Timings: 9:00 am - 9:00 pm
+                  </Text>
+                </View>
+              </View>
+
+              <View style={{ ...styles.containerchat2 }}>
+                {/* Chat Button */}
+                <TouchableOpacity style={styles.chatButton2}>
+                  <View style={styles.iconTextContainer}>
+                    <Ionicons
+                      name="chatbox-ellipses-outline"
+                      size={18}
+                      color="#fd267d"
+                      style={styles.iconStyle}
+                    />
+                    <Text style={styles.chatButtonText2}>Chat</Text>
+                  </View>
+                </TouchableOpacity>
+
+                {/* Call Button */}
+                <LinearGradient
+                  colors={["#ff7e5f", "#fd267d"]} // Gradient colors
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={styles.callButton2}
+                >
+                  <View style={styles.iconTextContainer}>
+                    <Feather
+                      name="phone-call"
+                      size={18}
+                      color="white"
+                      style={styles.iconStyle}
+                    />
+                    <Text style={styles.callButtonText}>Call</Text>
+                  </View>
+                </LinearGradient>
+              </View>
+            </View>
+
+            <View style={{ ...styles.containerchat }}>
+              {/* Call Button */}
+              <LinearGradient
+                colors={["#ff7e5f", "#fd267d"]} // Gradient colors
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                style={styles.callButton}
+              >
+                <Text style={styles.callButtonText}>Services</Text>
+              </LinearGradient>
+              <TouchableOpacity style={styles.chatButton}>
+                <Text style={styles.chatButtonText}>About</Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
           <ScrollView
             style={{
               // paddingLeft: "5%",
               // paddingRight: "5%",
-              marginBottom: 90,
+              marginBottom: 430,
               backgroundColor: "#EAECF0",
               // height: "100%",
             }}
           >
             {viewAlldata?.map((item, index) => (
-              <View style={styles.container3} key={index}>
+              <View
+                style={{
+                  ...styles.container3,
+                  paddingTop: index === 0 ? "0%" : "5%",
+                }}
+                key={index}
+              >
                 <View>
                   <Image
                     source={item.thumbnail}
@@ -195,20 +305,16 @@ function Detailscreen({ navigation }) {
                   </View>
                   {/* Buttons */}
                   <View style={styles.iconContainer}>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                       style={styles.profileButton}
                       onPress={() => {
-                        navigation.navigate("Carwashprofile");
+                        navigation.navigate("Profilescreen");
                       }}
                     >
                       <AntDesign name="user" color={"white"} size={20} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TouchableOpacity style={styles.shareButton}>
-                      <AntDesign
-                        name="sharealt"
-                        color={placedata !== "Sharjah" ? "white" : "black"}
-                        size={20}
-                      />
+                      <AntDesign name="sharealt" color={"white"} size={20} />
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={styles.heartButton}
@@ -216,13 +322,7 @@ function Detailscreen({ navigation }) {
                     >
                       <AntDesign
                         name={clickedHearts[index] ? "heart" : "hearto"} // Check heart state for this index
-                        color={
-                          clickedHearts[index]
-                            ? "red"
-                            : placedata !== "Sharjah"
-                            ? "white"
-                            : "black"
-                        }
+                        color={clickedHearts[index] ? "red" : "white"}
                         size={20}
                       />
                     </TouchableOpacity>
@@ -246,6 +346,14 @@ function Detailscreen({ navigation }) {
                   >
                     <Text
                       style={{
+                        fontWeight: "bold",
+                        fontSize: 16,
+                      }}
+                    >
+                      {"Car Polishing"}
+                    </Text>
+                    <Text
+                      style={{
                         color: "#f00036",
                         fontWeight: "bold",
                         fontSize: 16,
@@ -253,26 +361,8 @@ function Detailscreen({ navigation }) {
                     >
                       {item?.price}
                     </Text>
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        // color: "#f00036",
-                      }}
-                      // onPress={() => {
-                      //   navigation.navigate("Details"); // Replace 'CarWashPage' with your target route
-                      // }}
-                    >
-                      {item?.distance}
-                    </Text>
                   </View>
-                  <Text
-                    style={{
-                      marginTop: "1%",
-                      fontSize: 16,
-                    }}
-                  >
-                    {item?.title}
-                  </Text>
+
                   <Text
                     style={{
                       marginTop: "1%",
@@ -281,76 +371,6 @@ function Detailscreen({ navigation }) {
                   >
                     {item?.desc}
                   </Text>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      paddingTop: "4%",
-                    }}
-                  >
-                    <Image
-                      source={item?.icon}
-                      style={{
-                        height: 50,
-                        width: 50,
-                        marginRight: 10,
-                        borderRadius: 5,
-                      }}
-                    />
-                    <View>
-                      <Text
-                        style={{
-                          color: "black",
-                          fontSize: 10,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        Location:{" "}
-                        <Text style={{ fontWeight: "normal" }}>
-                          {item?.location}
-                        </Text>
-                      </Text>
-                      <Text
-                        style={{
-                          color: "black",
-                          fontSize: 10,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        Posted on:{" "}
-                        <Text style={{ fontWeight: "normal" }}>
-                          {item?.postedon}
-                        </Text>
-                      </Text>
-                      <Text
-                        style={{
-                          color: "black",
-                          fontSize: 10,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        Posted By:{" "}
-                        <Text style={{ fontWeight: "normal" }}>
-                          {item?.postedby}
-                        </Text>
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={styles.containerchat}>
-                    <TouchableOpacity style={styles.chatButton}>
-                      <Text style={styles.chatButtonText}>Chat</Text>
-                    </TouchableOpacity>
-
-                    {/* Call Button */}
-                    <LinearGradient
-                      colors={["#ff7e5f", "#fd267d"]} // Gradient colors
-                      start={{ x: 0, y: 0 }}
-                      end={{ x: 1, y: 0 }}
-                      style={styles.callButton}
-                    >
-                      <Text style={styles.callButtonText}>Call</Text>
-                    </LinearGradient>
-                  </View>
                 </View>
               </View>
             ))}
@@ -362,7 +382,7 @@ function Detailscreen({ navigation }) {
   );
 }
 
-export default Detailscreen;
+export default Profilescreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -410,10 +430,42 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: 15,
+    paddingBottom: 15,
+  },
+  containerchatmain: {
+    padding: 15,
+    boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.15)", // Adjusted shadow
+    borderRadius: 20,
+    backgroundColor: "white",
+  },
+  containerchat2: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  backgroundImage: {
+    position: "absolute", // Set the image in the background
+    width: "100%",
+    top: "-45%",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    resizeMode: "contain", // Ensures the image covers the screen
   },
   chatButton: {
+    width: "48%",
+    borderWidth: 1,
+    borderColor: "#f2f4f7", // Border color
+    backgroundColor: "#f2f4f7", // Light background color
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+  },
+  chatButton2: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     width: "48%",
     borderWidth: 1,
     borderColor: "#fd267d", // Border color
@@ -424,6 +476,11 @@ const styles = StyleSheet.create({
   },
   chatButtonText: {
     textAlign: "center",
+    // color: "#fd267d", // Text color matching border
+    fontWeight: "bold",
+  },
+  chatButtonText2: {
+    textAlign: "center",
     color: "#fd267d", // Text color matching border
     fontWeight: "bold",
   },
@@ -433,10 +490,27 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 10,
   },
+  callButton2: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "48%",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+  },
   callButtonText: {
     textAlign: "center",
     color: "#fff", // White text color
     fontWeight: "bold",
+  },
+  iconTextContainer: {
+    flexDirection: "row",
+    alignItems: "center", // Center icon and text vertically
+    justifyContent: "center",
+  },
+  iconStyle: {
+    marginRight: 8, // Spacing between the icon and text
   },
   image: {
     width: "100%",
@@ -508,7 +582,7 @@ const styles = StyleSheet.create({
     // paddingRight: 5,
     // backgroundColor: "pink",
     width: "100%",
-    height: 490,
+    height: 330,
   },
   pricetext2: {
     fontSize: 12,

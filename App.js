@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import Homescreen from "./views/Homescreen";
 import Detailscreen from "./views/Detailscreen";
 import Carwashscreen from "./views/Carwashscreen";
+import Profilescreen from "./views/Profilescreen";
 import Categoryscreen from "./views/Categoryscreen";
 import Favoritescreen from "./views/Favoritescreen";
 import Morescreen from "./views/Morescreen";
@@ -27,6 +28,7 @@ const HomeStack = () => {
       <Stack.Screen name="Home" component={Homescreen} />
       <Stack.Screen name="Details" component={Detailscreen} />
       <Stack.Screen name="Carwashdetail" component={Carwashscreen} />
+      <Stack.Screen name="Carwashprofile" component={Profilescreen} />
     </Stack.Navigator>
   );
 };
