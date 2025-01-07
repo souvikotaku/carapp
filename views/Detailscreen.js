@@ -160,7 +160,7 @@ function Detailscreen({ navigation }) {
             >
               Showing{" "}
               <Text style={{ color: "#f00036" }}>{viewAlldata?.length}</Text>{" "}
-              results in Dubai
+              results in {placedata}
             </Text>
           </View>
 

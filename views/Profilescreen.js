@@ -66,6 +66,7 @@ function Profilescreen({ navigation }) {
   const [priceTotal, setPriceTotal] = useState();
   const [cartData, setCartData] = useState();
   const [clickedHearts, setClickedHearts] = useState({}); // Object to track heart states by index
+  const [showabout, setshowabout] = useState(false); // Object to track heart states by index
 
   const toggleHeart = (index) => {
     setClickedHearts((prev) => ({
@@ -253,17 +254,60 @@ function Profilescreen({ navigation }) {
             </View>
 
             <View style={{ ...styles.containerchat }}>
-              {/* Call Button */}
-              <LinearGradient
-                colors={["#ff7e5f", "#fd267d"]} // Gradient colors
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={styles.callButton}
+              {/* Services Button */}
+              <TouchableOpacity
+                onPress={() => {
+                  setshowabout(false);
+                }}
+                style={{
+                  width: "48%",
+                }}
               >
-                <Text style={styles.callButtonText}>Services</Text>
-              </LinearGradient>
-              <TouchableOpacity style={styles.chatButton}>
-                <Text style={styles.chatButtonText}>About</Text>
+                <LinearGradient
+                  colors={
+                    showabout ? ["#f2f4f7", "#f2f4f7"] : ["#ff7e5f", "#fd267d"]
+                  } // Gradient only if 'showabout' is false
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={styles.callButton}
+                >
+                  <Text
+                    style={{
+                      ...styles.callButtonTextnew,
+                      color: showabout ? "black" : "white",
+                    }}
+                  >
+                    Services
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
+
+              {/* About Button */}
+              <TouchableOpacity
+                onPress={() => {
+                  setshowabout(true);
+                }}
+                style={{
+                  width: "48%",
+                }}
+              >
+                <LinearGradient
+                  colors={
+                    showabout ? ["#ff7e5f", "#fd267d"] : ["#f2f4f7", "#f2f4f7"]
+                  } // Gradient only if 'showabout' is true
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={styles.callButton}
+                >
+                  <Text
+                    style={{
+                      ...styles.callButtonTextnew,
+                      color: showabout ? "white" : "black",
+                    }}
+                  >
+                    About
+                  </Text>
+                </LinearGradient>
               </TouchableOpacity>
             </View>
           </View>
@@ -272,108 +316,160 @@ function Profilescreen({ navigation }) {
             style={{
               // paddingLeft: "5%",
               // paddingRight: "5%",
-              marginBottom: 430,
+              marginBottom: showabout === false && 430,
               backgroundColor: "#EAECF0",
               // height: "100%",
             }}
           >
-            {viewAlldata?.map((item, index) => (
-              <View
-                style={{
-                  ...styles.container3,
-                  paddingTop: index === 0 ? "0%" : "5%",
-                }}
-                key={index}
-              >
-                <View>
-                  <Image
-                    source={item.thumbnail}
-                    style={{
-                      margin: "auto",
-                      height: 220,
-                      width: "100%",
-                      borderRadius: 10,
-                    }}
-                  />
-                  {/* Label */}
-                  <View
-                    style={
-                      index === 0 ? styles.premiumLabel : styles.featuredLabel
-                    }
-                  >
-                    <Text style={styles.premiumText}>{item.label}</Text>
-                  </View>
-                  {/* Buttons */}
-                  <View style={styles.iconContainer}>
-                    {/* <TouchableOpacity
-                      style={styles.profileButton}
-                      onPress={() => {
-                        navigation.navigate("Profilescreen");
-                      }}
-                    >
-                      <AntDesign name="user" color={"white"} size={20} />
-                    </TouchableOpacity> */}
-                    <TouchableOpacity style={styles.shareButton}>
-                      <AntDesign name="sharealt" color={"white"} size={20} />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.heartButton}
-                      onPress={() => toggleHeart(index)} // Toggle heart state for this index
-                    >
-                      <AntDesign
-                        name={clickedHearts[index] ? "heart" : "hearto"} // Check heart state for this index
-                        color={clickedHearts[index] ? "red" : "white"}
-                        size={20}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-
+            {showabout === false ? (
+              viewAlldata?.map((item, index) => (
                 <View
                   style={{
-                    paddingTop: "3%",
+                    ...styles.container3,
+                    paddingTop: index === 0 ? "0%" : "4%",
+                    height: index === 0 ? 365 : 385,
                   }}
+                  key={index}
                 >
-                  <View
-                    style={{
-                      // backgroundColor: "pink",
-                      flexDirection: "row",
-                      alignItems: "center", // Align items vertically in the center
-                      justifyContent: "space-between", // Distribute space between the texts
-                      paddingHorizontal: 0.1, // Add some horizontal padding
-                      // paddingVertical: 5, // Add some vertical padding
+                  <View>
+                    <Image
+                      source={item.thumbnail}
+                      style={{
+                        margin: "auto",
+                        height: 220,
+                        width: "100%",
+                        borderRadius: 10,
+                      }}
+                    />
+                    {/* Label */}
+                    <View
+                      style={
+                        index === 0 ? styles.premiumLabel : styles.featuredLabel
+                      }
+                    >
+                      <Text style={styles.premiumText}>{item.label}</Text>
+                    </View>
+                    {/* Buttons */}
+                    <View style={styles.iconContainer}>
+                      {/* <TouchableOpacity
+                    style={styles.profileButton}
+                    onPress={() => {
+                      navigation.navigate("Profilescreen");
                     }}
                   >
-                    <Text
-                      style={{
-                        fontWeight: "bold",
-                        fontSize: 16,
-                      }}
-                    >
-                      {"Car Polishing"}
-                    </Text>
-                    <Text
-                      style={{
-                        color: "#f00036",
-                        fontWeight: "bold",
-                        fontSize: 16,
-                      }}
-                    >
-                      {item?.price}
-                    </Text>
+                    <AntDesign name="user" color={"white"} size={20} />
+                  </TouchableOpacity> */}
+                      <TouchableOpacity style={styles.shareButton}>
+                        <AntDesign name="sharealt" color={"white"} size={20} />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={styles.heartButton}
+                        onPress={() => toggleHeart(index)} // Toggle heart state for this index
+                      >
+                        <AntDesign
+                          name={clickedHearts[index] ? "heart" : "hearto"} // Check heart state for this index
+                          color={clickedHearts[index] ? "red" : "white"}
+                          size={20}
+                        />
+                      </TouchableOpacity>
+                    </View>
                   </View>
 
-                  <Text
+                  <View
                     style={{
-                      marginTop: "1%",
-                      fontSize: 12,
+                      paddingTop: "3%",
                     }}
                   >
-                    {item?.desc}
-                  </Text>
+                    <View
+                      style={{
+                        // backgroundColor: "pink",
+                        flexDirection: "row",
+                        alignItems: "center", // Align items vertically in the center
+                        justifyContent: "space-between", // Distribute space between the texts
+                        paddingHorizontal: 0.1, // Add some horizontal padding
+                        // paddingVertical: 5, // Add some vertical padding
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 16,
+                        }}
+                      >
+                        {item.title}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "#f00036",
+                          fontWeight: "bold",
+                          fontSize: 16,
+                        }}
+                      >
+                        {item?.price}
+                      </Text>
+                    </View>
+
+                    <Text
+                      style={{
+                        marginTop: "1%",
+                        fontSize: 12,
+                      }}
+                    >
+                      {item?.desc}
+                    </Text>
+
+                    <TouchableOpacity
+                      style={{
+                        width: "48%",
+                        marginTop: 15,
+                      }}
+                    >
+                      <LinearGradient
+                        colors={["#ff7e5f", "#fd267d"]} // Gradient only if 'showabout' is false
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={styles.callButton}
+                      >
+                        <Text
+                          style={{
+                            ...styles.callButtonTextnew,
+                            color: "white",
+                          }}
+                        >
+                          Book
+                        </Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  </View>
                 </View>
+              ))
+            ) : (
+              <View
+                style={{
+                  backgroundColor: "white",
+                  paddingLeft: "5%",
+                  paddingRight: "5%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#475467",
+                    fontSize: 16,
+                    lineHeight: 21,
+                  }}
+                >
+                  Perfect Spot Auto Spa is your go-to destination for premium
+                  car care and detailing services. Located in the heart of
+                  Deira, Dubai, we specialize in bringing your vehicle back to
+                  its showroom shine with a meticulous touch. From interior deep
+                  cleaning to advanced exterior polishing, our expert team
+                  ensures every detail is perfected. Open daily from 9:00 AM to
+                  9:00 PM, we are dedicated to providing exceptional service and
+                  quality that exceeds expectations. Your car deserves nothing
+                  less than the perfect spot!
+                </Text>
               </View>
-            ))}
+            )}
           </ScrollView>
         </View>
       </View>
@@ -485,7 +581,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   callButton: {
-    width: "48%",
+    width: "100%",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
@@ -502,6 +598,11 @@ const styles = StyleSheet.create({
   callButtonText: {
     textAlign: "center",
     color: "#fff", // White text color
+    fontWeight: "bold",
+  },
+  callButtonTextnew: {
+    textAlign: "center",
+    // color: "#fff", // White text color
     fontWeight: "bold",
   },
   iconTextContainer: {
@@ -582,7 +683,7 @@ const styles = StyleSheet.create({
     // paddingRight: 5,
     // backgroundColor: "pink",
     width: "100%",
-    height: 330,
+    // height: 380,
   },
   pricetext2: {
     fontSize: 12,
