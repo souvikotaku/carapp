@@ -9,11 +9,15 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
+  Animated,
+  TextInput,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Carousel from "react-native-reanimated-carousel";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
+
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { Alert } from "react-native";
 
@@ -65,12 +69,38 @@ function Detailscreen({ navigation }) {
   const [priceTotal, setPriceTotal] = useState();
   const [cartData, setCartData] = useState();
   const [clickedHearts, setClickedHearts] = useState({}); // Object to track heart states by index
-
+  const [clickedHearts2, setClickedHearts2] = useState(false); // Object to track heart states by index
+  const [showsearch, setShowSearch] = useState(false);
+  const animationValue = useRef(new Animated.Value(0)).current; // Initial height is 0
   const toggleHeart = (index) => {
     setClickedHearts((prev) => ({
       ...prev,
       [index]: !prev[index], // Toggle the heart for the specific index
     }));
+  };
+  const toggleHeart2 = (index) => {
+    setClickedHearts2((prev) => ({
+      ...prev,
+      [index]: !prev[index], // Toggle the heart for the specific index
+    }));
+  };
+
+  const toggleSearch = () => {
+    if (showsearch) {
+      // Slide up (hide)
+      Animated.timing(animationValue, {
+        toValue: 0,
+        duration: 300, // Animation duration in ms
+        useNativeDriver: false, // Height cannot use native driver
+      }).start(() => setShowSearch(false)); // Hide after animation completes
+    } else {
+      // Slide down (show)
+      Animated.timing(animationValue, {
+        toValue: 100, // Target height in px
+        duration: 300,
+        useNativeDriver: false,
+      }).start(() => setShowSearch(true)); // Show content after animation completes
+    }
   };
 
   return (
@@ -89,7 +119,7 @@ function Detailscreen({ navigation }) {
         //     backgroundColor: "lightblue",
         //   }}
         >
-          <View
+          {/* <View
             style={{
               flexDirection: "row",
               marginTop: 0,
@@ -143,10 +173,168 @@ function Detailscreen({ navigation }) {
                 {placedata}
               </Text>
             </View>
-          </View>
+          </View> */}
+
           <View
             style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
               marginTop: "4%",
+              marginBottom: "2%",
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                // backgroundColor: "pink",
+              }}
+            >
+              <View
+                style={{
+                  paddingLeft: "5%",
+                  paddingRight: "1%",
+                  // marginTop: "4%",
+                }}
+              >
+                <TouchableOpacity
+                  style={{
+                    // backgroundColor: "#F8F9FB",
+                    width: 35,
+                    height: 35,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    // borderRadius: 70,
+                    // elevation: 5,
+                    // shadowColor: "black",
+                  }}
+                  onPress={() => {
+                    navigation.navigate("Carwashdetail");
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="arrow-left"
+                    color={"black"}
+                    size={30}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  // marginTop: "4%",
+                  //   backgroundColor: "pink",
+                  // flex: 1,
+                  alignItems: "start",
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                  }}
+                >
+                  {placedata}
+                </Text>
+              </View>
+            </View>
+            <View
+              style={{
+                paddingRight: "5%",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "row",
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  // backgroundColor: "#F8F9FB",
+                  width: 30,
+                  height: 30,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 70,
+                  marginRight: 10,
+                  // flexDirection: "row",
+                  // elevation: 5,
+                  // shadowColor: "black",
+                }}
+                onPress={toggleSearch}
+              >
+                <Ionicons name="search" color={"gray"} size={25} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  // backgroundColor: "#F8F9FB",
+                  width: 30,
+                  height: 30,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 70,
+                  marginRight: 10,
+                  // flexDirection: "row",
+                  // elevation: 5,
+                  // shadowColor: "black",
+                }}
+                // onPress={toggleSearch}
+              >
+                <SimpleLineIcons name="equalizer" color={"gray"} size={25} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  ...styles.heartButton,
+                  width: 33,
+                  height: 33,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 70,
+                }}
+                onPress={() => {
+                  if (clickedHearts2) {
+                    setClickedHearts2(false);
+                  } else {
+                    setClickedHearts2(true);
+                  }
+                }} // Toggle heart state for this index
+              >
+                <AntDesign
+                  name={clickedHearts2 ? "heart" : "hearto"} // Check heart state for this index
+                  color={clickedHearts2 ? "red" : "gray"}
+                  size={25}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <Animated.View
+            style={{
+              height: animationValue, // Animate the height
+              overflow: "hidden", // Prevent content from spilling out
+              paddingLeft: "5%",
+              paddingRight: "5%",
+              marginTop: "-1%",
+            }}
+          >
+            {/* {showsearch && ( */}
+            <View style={{ position: "relative" }}>
+              <TextInput
+                style={styles.input}
+                placeholder="Search"
+                placeholderTextColor="lightgray"
+              />
+              <Ionicons
+                name="search-outline"
+                color={"black"}
+                size={20}
+                style={{ position: "absolute", left: 10, top: 37 }}
+              />
+            </View>
+            {/* )} */}
+          </Animated.View>
+
+          <View
+            style={{
+              // marginTop: showsearch ? "-1%" : "2%",
               // paddingBottom: "4%",
 
               paddingLeft: "5%",
@@ -170,7 +358,7 @@ function Detailscreen({ navigation }) {
             style={{
               // paddingLeft: "5%",
               // paddingRight: "5%",
-              marginBottom: 90,
+              marginBottom: showsearch ? 180 : 80,
               backgroundColor: "#EAECF0",
               // height: "100%",
             }}
@@ -345,14 +533,20 @@ function Detailscreen({ navigation }) {
                     </TouchableOpacity>
 
                     {/* Call Button */}
-                    <LinearGradient
-                      colors={["#ff7e5f", "#fd267d"]} // Gradient colors
-                      start={{ x: 0, y: 0 }}
-                      end={{ x: 1, y: 0 }}
-                      style={styles.callButton}
+                    <TouchableOpacity
+                      style={{
+                        width: "48%",
+                      }}
                     >
-                      <Text style={styles.callButtonText}>Call</Text>
-                    </LinearGradient>
+                      <LinearGradient
+                        colors={["#ff7e5f", "#fd267d"]} // Gradient colors
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={styles.callButton}
+                      >
+                        <Text style={styles.callButtonText}>Calls</Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
@@ -425,13 +619,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 10,
   },
+  input: {
+    height: 40,
+    backgroundColor: "white",
+    marginTop: 20,
+    paddingLeft: 40,
+    borderRadius: 28,
+    height: 56,
+    padding: 20,
+    borderColor: "black", // Black outline color
+    borderWidth: 0.5, // Thickness of the outline
+  },
   chatButtonText: {
     textAlign: "center",
     color: "#fd267d", // Text color matching border
     fontWeight: "bold",
   },
   callButton: {
-    width: "48%",
+    width: "100%",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,

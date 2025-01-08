@@ -3,17 +3,21 @@ import {
   Text,
   StyleSheet,
   Image,
+  TextInput,
   Dimensions,
   Pressable,
   Button,
   FlatList,
   TouchableOpacity,
   ScrollView,
+  Animated,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Carousel from "react-native-reanimated-carousel";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
+
 import { Alert } from "react-native";
 import showroom from "./assets/showroom.png";
 import showroom2 from "./assets/showroom2.png";
@@ -70,6 +74,8 @@ function Carwashscreen({ navigation }) {
   const [incart, setIncart] = useState();
   const [priceTotal, setPriceTotal] = useState();
   const [cartData, setCartData] = useState();
+  const [showsearch, setShowSearch] = useState(false);
+  const animationValue = useRef(new Animated.Value(0)).current; // Initial height is 0
 
   const places = ["Dubai", "Sharjah", "Abu Dhabi"];
 
@@ -393,6 +399,24 @@ function Carwashscreen({ navigation }) {
 
   const renderItem = ({ item }) => <Item title={item.title} item={item} />;
 
+  const toggleSearch = () => {
+    if (showsearch) {
+      // Slide up (hide)
+      Animated.timing(animationValue, {
+        toValue: 0,
+        duration: 300, // Animation duration in ms
+        useNativeDriver: false, // Height cannot use native driver
+      }).start(() => setShowSearch(false)); // Hide after animation completes
+    } else {
+      // Slide down (show)
+      Animated.timing(animationValue, {
+        toValue: 100, // Target height in px
+        duration: 300,
+        useNativeDriver: false,
+      }).start(() => setShowSearch(true)); // Show content after animation completes
+    }
+  };
+
   useEffect(() => {
     axios
       // .get("https://dummyjson.com/products")
@@ -536,64 +560,139 @@ function Carwashscreen({ navigation }) {
           <View
             style={{
               flexDirection: "row",
-              marginTop: 0,
-              // backgroundColor: "red",
+              justifyContent: "space-between",
+              marginTop: "4%",
             }}
           >
             <View
               style={{
-                paddingLeft: "5%",
-                paddingRight: "1%",
-                marginTop: "4%",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                // backgroundColor: "pink",
+              }}
+            >
+              <View
+                style={{
+                  paddingLeft: "5%",
+                  paddingRight: "1%",
+                  // marginTop: "4%",
+                }}
+              >
+                <TouchableOpacity
+                  style={{
+                    // backgroundColor: "#F8F9FB",
+                    width: 35,
+                    height: 35,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    // borderRadius: 70,
+                    // elevation: 5,
+                    // shadowColor: "black",
+                  }}
+                  onPress={() => {
+                    navigation.navigate("Home");
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="arrow-left"
+                    color={"black"}
+                    size={30}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  // marginTop: "4%",
+                  //   backgroundColor: "pink",
+                  // flex: 1,
+                  alignItems: "start",
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                  }}
+                >
+                  {`Car Wash & Detailing`}
+                </Text>
+              </View>
+            </View>
+            <View
+              style={{
+                paddingRight: "5%",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "row",
               }}
             >
               <TouchableOpacity
                 style={{
                   // backgroundColor: "#F8F9FB",
-                  width: 35,
-                  height: 35,
+                  width: 30,
+                  height: 30,
                   alignItems: "center",
                   justifyContent: "center",
-                  // borderRadius: 70,
+                  borderRadius: 70,
+                  marginRight: 10,
+                  // flexDirection: "row",
                   // elevation: 5,
                   // shadowColor: "black",
                 }}
-                onPress={() => {
-                  navigation.navigate("Home");
-                }}
+                onPress={toggleSearch}
               >
-                <MaterialCommunityIcons
-                  name="arrow-left"
-                  color={"black"}
-                  size={30}
-                />
+                <Ionicons name="search" color={"gray"} size={25} />
               </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                marginTop: "4%",
-                //   backgroundColor: "pink",
-                flex: 1,
-                alignItems: "start",
-                justifyContent: "center",
-              }}
-            >
-              <Text
+              <TouchableOpacity
                 style={{
-                  fontSize: 20,
-                  fontWeight: "bold",
+                  // backgroundColor: "#F8F9FB",
+                  width: 30,
+                  height: 30,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 70,
+                  // flexDirection: "row",
+                  // elevation: 5,
+                  // shadowColor: "black",
                 }}
+                // onPress={toggleSearch}
               >
-                {`Car Wash & Detailing`}
-              </Text>
+                <SimpleLineIcons name="equalizer" color={"gray"} size={25} />
+              </TouchableOpacity>
             </View>
           </View>
 
+          <Animated.View
+            style={{
+              height: animationValue, // Animate the height
+              overflow: "hidden", // Prevent content from spilling out
+              paddingLeft: "5%",
+              paddingRight: "5%",
+            }}
+          >
+            {/* {showsearch && ( */}
+            <View style={{ position: "relative" }}>
+              <TextInput
+                style={styles.input}
+                placeholder="Search"
+                placeholderTextColor="lightgray"
+              />
+              <Ionicons
+                name="search-outline"
+                color={"black"}
+                size={20}
+                style={{ position: "absolute", left: 10, top: 37 }}
+              />
+            </View>
+            {/* )} */}
+          </Animated.View>
           <ScrollView
             style={{
               paddingLeft: "5%",
               paddingRight: "5%",
-              marginBottom: 50,
+              marginBottom: showsearch ? 150 : 50,
             }}
           >
             {showrooms?.map((item, index) => (
@@ -877,6 +976,17 @@ const styles = StyleSheet.create({
     paddingTop: 40,
 
     // width: "100%",
+  },
+  input: {
+    height: 40,
+    backgroundColor: "white",
+    marginTop: 20,
+    paddingLeft: 40,
+    borderRadius: 28,
+    height: 56,
+    padding: 20,
+    borderColor: "black", // Black outline color
+    borderWidth: 0.5, // Thickness of the outline
   },
   detailheader: {
     fontSize: 50,

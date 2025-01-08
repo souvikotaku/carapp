@@ -225,9 +225,17 @@ const Homescreen = ({ navigation }) => {
             justifyContent: "space-between",
           }}
         >
-          <Text style={styles.nameheading}>
-            <Entypo name="location-pin" color={"#f00036"} size={30} /> Dubai
-          </Text>
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexDirection: "row",
+            }}
+          >
+            <Entypo name="location-pin" color={"#f00036"} size={25} />
+            <Text style={styles.nameheading}>Dubai</Text>
+          </View>
+
           <TouchableOpacity
             style={{
               // backgroundColor: "#F8F9FB",
@@ -255,7 +263,7 @@ const Homescreen = ({ navigation }) => {
           <View style={{ position: "relative" }}>
             <TextInput
               style={styles.input}
-              placeholder="Search Categories"
+              placeholder="Search"
               placeholderTextColor="lightgray"
             />
             <Ionicons
@@ -493,8 +501,9 @@ const styles = StyleSheet.create({
     textAlign: "left",
     // fontFamily: "Manrope",
     // fontWeight: "bold",
-    fontSize: 22,
     lineHeight: 30,
+    fontSize: 20,
+    fontWeight: "bold",
   },
   slide: {
     // justifyContent: "center",

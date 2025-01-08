@@ -229,22 +229,28 @@ function Profilescreen({ navigation }) {
                 </TouchableOpacity>
 
                 {/* Call Button */}
-                <LinearGradient
-                  colors={["#ff7e5f", "#fd267d"]} // Gradient colors
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 0 }}
-                  style={styles.callButton2}
+                <TouchableOpacity
+                  style={{
+                    width: "48%",
+                  }}
                 >
-                  <View style={styles.iconTextContainer}>
-                    <Feather
-                      name="phone-call"
-                      size={18}
-                      color="white"
-                      style={styles.iconStyle}
-                    />
-                    <Text style={styles.callButtonText}>Call</Text>
-                  </View>
-                </LinearGradient>
+                  <LinearGradient
+                    colors={["#ff7e5f", "#fd267d"]} // Gradient colors
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={styles.callButton2}
+                  >
+                    <View style={styles.iconTextContainer}>
+                      <Feather
+                        name="phone-call"
+                        size={18}
+                        color="white"
+                        style={styles.iconStyle}
+                      />
+                      <Text style={styles.callButtonText}>Call</Text>
+                    </View>
+                  </LinearGradient>
+                </TouchableOpacity>
               </View>
             </View>
 
@@ -716,7 +722,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    width: "48%",
+    width: "100%",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
