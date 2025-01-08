@@ -2,10 +2,10 @@ It is a car service app I made for interview task purpose using expo and react n
 
 You can run the code by yarn start and then the qr code will appear in the terminal, scan it with your expo go app on your phone and then you can check it on your phone.
 
-#The app is downloadable here:-
+# The app is downloadable here:-
 https://drive.google.com/file/d/17lR_TY7P5FNOWyp7ZX_e45CwdVmLGj7B/view?usp=sharing
 
-#Instructions to examine the app:-
+# Instructions to examine the app:-
 
 1. When the app opens, it will show various cards such as Motors, Motorbikes, Car Wash etc. Click on Car Wash card.
 2. On clicking it, you will be taken to the car wash and detailing screen where you would see various lists of car wash services available in dubai, sharjah and Abu Dhabi. Click on 'view all' of any of the lists.
