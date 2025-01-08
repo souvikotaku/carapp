@@ -4,11 +4,9 @@ import {
   StyleSheet,
   Image,
   Dimensions,
-  Pressable,
-  Button,
-  FlatList,
   TouchableOpacity,
   ScrollView,
+  Platform,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Carousel from "react-native-reanimated-carousel";
@@ -18,6 +16,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import { Alert } from "react-native";
 import showroom2 from "./assets/showroom2.png";
 import profilepic from "./assets/profilepic.png";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { LinearGradient } from "expo-linear-gradient"; // For gradient button
 
@@ -58,12 +57,77 @@ function Bookingscreen({ navigation }) {
     "Lamborghini Aventador"
   );
   const [selectedVehicle2, setSelectedVehicle2] = useState("AE 123456");
+  const [date, setDate] = useState(new Date()); // Current date/time
+  const [show, setShow] = useState(false); // Controls picker visibility
+  const [mode, setMode] = useState("date"); // Controls whether 'date' or 'time' is shown
 
-  const toggleHeart = (index) => {
-    setClickedHearts((prev) => ({
-      ...prev,
-      [index]: !prev[index], // Toggle the heart for the specific index
-    }));
+  // const onChange = (event, selectedDate) => {
+  //   if (event.type === "dismissed") {
+  //     setShow(false); // Close the picker on dismiss
+  //     return;
+  //   }
+
+  //   const currentDate = selectedDate || date;
+  //   setShow(false); // Close picker after selection
+  //   setDate(currentDate); // Update state with selected date/time
+  // };
+
+  // const showMode = (currentMode) => {
+  //   setMode(currentMode);
+  //   setShow(true);
+  // };
+
+  const onChange = (event, selectedDate) => {
+    if (event.type === "dismissed") {
+      setShow(false); // Close picker on dismiss
+      return;
+    }
+
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+
+    if (mode === "date") {
+      // If the date was selected, show the time picker next
+      setMode("time");
+      setShow(true); // Show the picker again for time
+    } else {
+      // If the time was selected, close the picker
+      setShow(false);
+    }
+  };
+
+  const showMode = (currentMode) => {
+    setMode(currentMode);
+    setShow(true);
+  };
+
+  const formatDateTime = (date) => {
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    const day = date.getDate();
+    const month = months[date.getMonth()]; // Get the full month name
+    const year = date.getFullYear();
+
+    let hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const ampm = hours >= 12 ? "PM" : "AM";
+
+    hours = hours % 12 || 12; // Convert 24-hour time to 12-hour time
+
+    return `${day} ${month} ${year} - ${hours}:${minutes} ${ampm}`;
   };
 
   return (
@@ -205,19 +269,78 @@ function Bookingscreen({ navigation }) {
             >
               <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Select Date & Time</Text>
-                <TouchableOpacity style={styles.dateTimeInput}>
-                  <Text style={styles.dateTimeText}>
-                    3 March 2024 - 4:00 PM
+                {/* <TouchableOpacity
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    backgroundColor: "#f5f5f5",
+                    padding: 10,
+                    borderRadius: 5,
+                  }}
+                  // onPress={() => setShow(true)} // Show the picker
+                  onPress={() => showMode("date")}
+                >
+                  <Text style={{ fontSize: 14 }}>
+                    {date.toLocaleDateString()} - {date.toLocaleTimeString()}
                   </Text>
                   <Ionicons
                     name="calendar-outline"
                     size={20}
                     color="#fd267d"
-                    style={{
-                      marginRight: "6%",
-                    }}
+                    style={{ marginLeft: 10 }}
                   />
                 </TouchableOpacity>
+
+
+              
+                {show && (
+                  <DateTimePicker
+                    value={date}
+                    mode={mode}
+                    is24Hour={true}
+                    display={Platform.OS === "ios" ? "spinner" : "default"}
+                    onChange={onChange}
+                  />
+                )} */}
+
+                <TouchableOpacity
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    // backgroundColor: "#f5f5f5",
+                    borderColor: "#FDA29B",
+                    backgroundColor: "#FFEEED",
+                    borderWidth: 1,
+
+                    padding: 10,
+                    borderRadius: 10,
+                  }}
+                  onPress={() => showMode("date")} // Start with date picker
+                >
+                  <Text style={{ fontSize: 14 }}>
+                    {/* {date.toLocaleDateString()} - {date.toLocaleTimeString()} */}
+                    {formatDateTime(date)}
+                  </Text>
+                  <Ionicons
+                    name="calendar-outline"
+                    size={20}
+                    color="#fd267d"
+                    style={{ marginRight: 5 }}
+                  />
+                </TouchableOpacity>
+
+                {/* DateTimePicker */}
+                {show && (
+                  <DateTimePicker
+                    value={date}
+                    mode={mode} // Dynamically switch between 'date' and 'time'
+                    is24Hour={true}
+                    display={Platform.OS === "ios" ? "spinner" : "default"}
+                    onChange={onChange}
+                  />
+                )}
               </View>
 
               {/* Choose Preferred Location */}
@@ -360,7 +483,7 @@ function Bookingscreen({ navigation }) {
                       preflocationactual: selectedLocation2,
                       vehicle: selectedVehicle,
                       vehiclenumber: selectedVehicle2,
-                      date: "3 March 2024 - 4:00 PM",
+                      date: formatDateTime(date),
                       ...bookingdata,
                     };
                     dispatch(setconfirmdata(bookingobject));
@@ -668,7 +791,7 @@ const styles = StyleSheet.create({
     borderColor: "#fd267d",
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 15,
+    // marginRight: 15,
   },
   radioContent: {
     flexDirection: "row",
