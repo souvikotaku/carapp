@@ -200,6 +200,7 @@ function Bookingscreen({ navigation }) {
 
                 height: "auto", // Automatically adjust to content height
                 minHeight: 315, // Enforce a minimum height
+                maxHeight: 318,
               }}
             >
               <View style={styles.section}>
@@ -291,7 +292,8 @@ function Bookingscreen({ navigation }) {
                 overflow: "hidden",
 
                 height: "auto", // Automatically adjust to content height
-                minHeight: 275,
+                minHeight: 276,
+                maxHeight: 278,
               }}
             >
               {/* Choose Preferred Location */}
