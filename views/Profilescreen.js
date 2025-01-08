@@ -31,7 +31,7 @@ import { Rating, AirbnbRating } from "react-native-ratings";
 import Toast from "react-native-toast-message";
 import profileback from "./assets/profileback.png";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 // import Carousel from "react-native-snap-carousel";
 
@@ -56,11 +56,6 @@ function Profilescreen({ navigation }) {
 
   // console.log("productArrayredux", productArrayredux);
 
-  const [productdetails, setProductdetails] = useState();
-  const [favorites, setFavorites] = useState();
-  const [incart, setIncart] = useState();
-  const [priceTotal, setPriceTotal] = useState();
-  const [cartData, setCartData] = useState();
   const [clickedHearts, setClickedHearts] = useState({}); // Object to track heart states by index
   const [showabout, setshowabout] = useState(false); // Object to track heart states by index
 
@@ -91,7 +86,7 @@ function Profilescreen({ navigation }) {
           <View
             style={{
               flexDirection: "row",
-              marginTop: -10,
+              marginTop: 35,
             }}
           >
             <View
@@ -149,12 +144,12 @@ function Profilescreen({ navigation }) {
           </View>
           <View
             style={{
-              marginTop: "37%",
+              marginTop: 115,
               // paddingBottom: "4%",
 
               paddingLeft: "5%",
               paddingRight: "5%",
-              //   backgroundColor: "pink",
+              // backgroundColor: "pink",
             }}
           >
             <View style={{ ...styles.containerchatmain }}>
@@ -323,128 +318,246 @@ function Profilescreen({ navigation }) {
           >
             {showabout === false ? (
               viewAlldata?.map((item, index) => (
+                // <View
+                //   style={{
+                //     ...styles.container3,
+                //     paddingTop: index === 0 ? 0 : 15,
+                //     height: 365,
+                //     // backgroundColor: "orange",
+                //   }}
+                //   key={index}
+                // >
+                //   <View
+                //     style={{
+                //       // backgroundColor: "pink",
+                //       height: "100%",
+                //     }}
+                //   >
+                //     <View>
+                //       <Image
+                //         source={item.thumbnail}
+                //         style={{
+                //           margin: "auto",
+                //           height: 220,
+                //           width: "100%",
+                //           borderRadius: 10,
+                //         }}
+                //       />
+                //       {/* Label */}
+                //       <View
+                //         style={
+                //           index === 0
+                //             ? styles.premiumLabel
+                //             : styles.featuredLabel
+                //         }
+                //       >
+                //         <Text style={styles.premiumText}>{item.label}</Text>
+                //       </View>
+                //       {/* Buttons */}
+                //       <View style={styles.iconContainer}>
+                //         {/* <TouchableOpacity
+                //     style={styles.profileButton}
+                //     onPress={() => {
+                //       navigation.navigate("Profilescreen");
+                //     }}
+                //   >
+                //     <AntDesign name="user" color={"white"} size={20} />
+                //   </TouchableOpacity> */}
+                //         <TouchableOpacity style={styles.shareButton}>
+                //           <AntDesign
+                //             name="sharealt"
+                //             color={"white"}
+                //             size={20}
+                //           />
+                //         </TouchableOpacity>
+                //         <TouchableOpacity
+                //           style={styles.heartButton}
+                //           onPress={() => toggleHeart(index)} // Toggle heart state for this index
+                //         >
+                //           <AntDesign
+                //             name={clickedHearts[index] ? "heart" : "hearto"} // Check heart state for this index
+                //             color={clickedHearts[index] ? "red" : "white"}
+                //             size={20}
+                //           />
+                //         </TouchableOpacity>
+                //       </View>
+                //     </View>
+
+                //     <View
+                //       style={{
+                //         paddingTop: "3%",
+                //       }}
+                //     >
+                //       <View
+                //         style={{
+                //           // backgroundColor: "pink",
+                //           flexDirection: "row",
+                //           alignItems: "center", // Align items vertically in the center
+                //           justifyContent: "space-between", // Distribute space between the texts
+                //           paddingHorizontal: 0.1, // Add some horizontal padding
+                //           // paddingVertical: 5, // Add some vertical padding
+                //         }}
+                //       >
+                //         <Text
+                //           style={{
+                //             fontWeight: "bold",
+                //             fontSize: 16,
+                //           }}
+                //         >
+                //           {item.title}
+                //         </Text>
+                //         <Text
+                //           style={{
+                //             color: "#f00036",
+                //             fontWeight: "bold",
+                //             fontSize: 16,
+                //           }}
+                //         >
+                //           {item?.price}
+                //         </Text>
+                //       </View>
+
+                //       <Text
+                //         style={{
+                //           marginTop: "1%",
+                //           fontSize: 12,
+                //         }}
+                //       >
+                //         {item?.desc}
+                //       </Text>
+
+                //       <TouchableOpacity
+                //         style={{
+                //           width: "48%",
+                //           marginTop: 15,
+                //         }}
+                //         onPress={() => {
+                //           dispatch(setbookingdata(item));
+                //           navigation.navigate("Booking");
+                //         }}
+                //       >
+                //         <LinearGradient
+                //           colors={["#ff7e5f", "#fd267d"]} // Gradient only if 'showabout' is false
+                //           start={{ x: 0, y: 0 }}
+                //           end={{ x: 1, y: 0 }}
+                //           style={styles.callButton}
+                //         >
+                //           <Text
+                //             style={{
+                //               ...styles.callButtonTextnew,
+                //               color: "white",
+                //             }}
+                //           >
+                //             Book Now
+                //           </Text>
+                //         </LinearGradient>
+                //       </TouchableOpacity>
+                //     </View>
+                //   </View>
+                // </View>
                 <View
                   style={{
                     ...styles.container3,
-                    paddingTop: index === 0 ? "0%" : "4%",
-                    height: index === 0 ? 365 : 385,
+                    paddingTop: index === 0 ? 0 : "5%",
+                    height: "auto", // Let it adapt based on content
                   }}
                   key={index}
                 >
-                  <View>
-                    <Image
-                      source={item.thumbnail}
-                      style={{
-                        margin: "auto",
-                        height: 220,
-                        width: "100%",
-                        borderRadius: 10,
-                      }}
-                    />
-                    {/* Label */}
-                    <View
-                      style={
-                        index === 0 ? styles.premiumLabel : styles.featuredLabel
-                      }
-                    >
-                      <Text style={styles.premiumText}>{item.label}</Text>
-                    </View>
-                    {/* Buttons */}
-                    <View style={styles.iconContainer}>
-                      {/* <TouchableOpacity
-                    style={styles.profileButton}
-                    onPress={() => {
-                      navigation.navigate("Profilescreen");
+                  <Image
+                    source={item.thumbnail}
+                    style={{
+                      margin: "auto",
+                      height: 220,
+                      width: "100%", // Full width of the container
+                      borderRadius: 10,
                     }}
-                  >
-                    <AntDesign name="user" color={"white"} size={20} />
-                  </TouchableOpacity> */}
-                      <TouchableOpacity style={styles.shareButton}>
-                        <AntDesign name="sharealt" color={"white"} size={20} />
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        style={styles.heartButton}
-                        onPress={() => toggleHeart(index)} // Toggle heart state for this index
-                      >
-                        <AntDesign
-                          name={clickedHearts[index] ? "heart" : "hearto"} // Check heart state for this index
-                          color={clickedHearts[index] ? "red" : "white"}
-                          size={20}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-
+                    resizeMode="cover" // Ensures image scales correctly
+                  />
                   <View
                     style={{
-                      paddingTop: "3%",
+                      ...(index === 0
+                        ? styles.premiumLabel
+                        : styles.featuredLabel),
                     }}
                   >
-                    <View
-                      style={{
-                        // backgroundColor: "pink",
-                        flexDirection: "row",
-                        alignItems: "center", // Align items vertically in the center
-                        justifyContent: "space-between", // Distribute space between the texts
-                        paddingHorizontal: 0.1, // Add some horizontal padding
-                        // paddingVertical: 5, // Add some vertical padding
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontWeight: "bold",
-                          fontSize: 16,
-                        }}
-                      >
-                        {item.title}
-                      </Text>
-                      <Text
-                        style={{
-                          color: "#f00036",
-                          fontWeight: "bold",
-                          fontSize: 16,
-                        }}
-                      >
-                        {item?.price}
-                      </Text>
-                    </View>
-
-                    <Text
-                      style={{
-                        marginTop: "1%",
-                        fontSize: 12,
-                      }}
-                    >
-                      {item?.desc}
-                    </Text>
-
+                    <Text style={styles.premiumText}>{item.label}</Text>
+                  </View>
+                  <View
+                    style={
+                      index === 0 ? styles.iconContainer : styles.iconContainer2
+                    }
+                  >
+                    <TouchableOpacity style={styles.shareButton}>
+                      <AntDesign name="sharealt" color={"white"} size={20} />
+                    </TouchableOpacity>
                     <TouchableOpacity
-                      style={{
-                        width: "48%",
-                        marginTop: 15,
-                      }}
-                      onPress={() => {
-                        dispatch(setbookingdata(item));
-                        navigation.navigate("Booking");
-                      }}
+                      style={styles.heartButton}
+                      onPress={() => toggleHeart(index)} // Toggle heart state for this index
                     >
-                      <LinearGradient
-                        colors={["#ff7e5f", "#fd267d"]} // Gradient only if 'showabout' is false
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        style={styles.callButton}
-                      >
-                        <Text
-                          style={{
-                            ...styles.callButtonTextnew,
-                            color: "white",
-                          }}
-                        >
-                          Book Now
-                        </Text>
-                      </LinearGradient>
+                      <AntDesign
+                        name={clickedHearts[index] ? "heart" : "hearto"} // Check heart state for this index
+                        color={clickedHearts[index] ? "red" : "white"}
+                        size={20}
+                      />
                     </TouchableOpacity>
                   </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      paddingVertical: "2%",
+                    }}
+                  >
+                    <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+                      {item.title}
+                    </Text>
+                    <Text
+                      style={{
+                        color: "#f00036",
+                        fontWeight: "bold",
+                        fontSize: 16,
+                      }}
+                    >
+                      {item.price}
+                    </Text>
+                  </View>
+                  <Text style={{ fontSize: 12, marginTop: "1%" }}>
+                    {item.desc}
+                  </Text>
+                  <TouchableOpacity
+                    style={{
+                      marginTop: 15,
+                      width: "48%",
+
+                      borderRadius: 5,
+                      alignSelf: "flex-start",
+                    }}
+                    onPress={() => {
+                      dispatch(setbookingdata(item));
+                      navigation.navigate("Booking");
+                    }}
+                  >
+                    <LinearGradient
+                      colors={["#ff7e5f", "#fd267d"]} // Gradient only if 'showabout' is false
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 0 }}
+                      style={{
+                        ...styles.callButton,
+                        justifyContent: "center", // Center vertically
+                        alignItems: "center",
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: "white",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Book Now
+                      </Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
                 </View>
               ))
             ) : (
@@ -486,18 +599,26 @@ export default Profilescreen;
 
 const styles = StyleSheet.create({
   container: {
+    position: "relative",
     flex: 1,
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "start",
-    paddingTop: 40,
+    // paddingTop: 40,
 
     // width: "100%",
   },
   iconContainer: {
     position: "absolute",
-    top: 10, // Adjust the vertical position
-    right: 10, // Adjust the horizontal position
+    top: height * 0.015,
+    right: width * 0.08,
+    flexDirection: "row",
+    gap: 10,
+  },
+  iconContainer2: {
+    position: "absolute",
+    top: height * 0.04,
+    right: width * 0.08,
     flexDirection: "row",
     gap: 10,
   },
@@ -547,11 +668,12 @@ const styles = StyleSheet.create({
   backgroundImage: {
     position: "absolute", // Set the image in the background
     width: "100%",
-    top: "-45%",
+    height: 250,
+    top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    resizeMode: "contain", // Ensures the image covers the screen
+    resizeMode: "cover", // Ensures the image covers the screen
   },
   chatButton: {
     width: "48%",
@@ -624,25 +746,25 @@ const styles = StyleSheet.create({
   },
   premiumLabel: {
     position: "absolute",
-    top: 10,
-    left: 10,
-    backgroundColor: "rgba(240, 0, 54, 0.6)", // Glass effect with #f00036 and 30% opacity
+    top: height * 0.015, // 2% of the screen height
+    left: width * 0.07, // 2% of the screen width
+    backgroundColor: "rgba(240, 0, 54, 0.6)",
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "transparent", // Slightly more opaque border for a subtle effect
+    borderColor: "transparent",
   },
   featuredLabel: {
     position: "absolute",
-    top: 10,
-    left: 10,
-    backgroundColor: "rgba(0, 123, 255, 0.6)", // Glass effect with #f00036 and 30% opacity
+    top: height * 0.04,
+    left: width * 0.07,
+    backgroundColor: "rgba(0, 123, 255, 0.6)",
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "transparent", // Slightly more opaque border for a subtle effect
+    borderColor: "transparent",
   },
   premiumText: {
     color: "white", // Orange color for text
