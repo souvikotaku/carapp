@@ -31,7 +31,7 @@ import { Rating, AirbnbRating } from "react-native-ratings";
 import Toast from "react-native-toast-message";
 import profileback from "./assets/profileback.png";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 // import Carousel from "react-native-snap-carousel";
 
@@ -72,12 +72,14 @@ function Bookingscreen({ navigation }) {
       <Image
         source={bookingdata.thumbnail}
         style={{
-          top: 30,
-          position: "absolute",
-          margin: "auto",
-          height: 220,
+          position: "absolute", // Set the image in the background
           width: "100%",
-          // borderRadius: 10,
+          height: 250,
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          resizeMode: "cover",
         }}
       />
       <View
@@ -97,7 +99,7 @@ function Bookingscreen({ navigation }) {
           <View
             style={{
               flexDirection: "row",
-              marginTop: -10,
+              marginTop: 35,
             }}
           >
             <View
@@ -152,8 +154,9 @@ function Bookingscreen({ navigation }) {
 
           <View
             style={{
-              marginTop: "44%",
-              paddingBottom: "3%",
+              marginTop: 175,
+              // marginTop: "44%",
+              paddingBottom: "4%",
 
               paddingLeft: "5%",
               paddingRight: "5%",
@@ -184,18 +187,21 @@ function Bookingscreen({ navigation }) {
               // paddingRight: "5%",
               // marginBottom: 430,
               backgroundColor: "#EAECF0",
-              height: "63%",
+              height: height * 0.56,
             }}
           >
             <View
               style={{
                 ...styles.container3,
-                paddingTop: "4%",
+                // padding: "4%",
                 marginTop: "4%",
-                height: 315,
+                // height: 300,
+                overflow: "hidden",
+
+                height: "auto", // Automatically adjust to content height
+                minHeight: 315, // Enforce a minimum height
               }}
             >
-              {/* Select Date & Time */}
               <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Select Date & Time</Text>
                 <TouchableOpacity style={styles.dateTimeInput}>
@@ -275,12 +281,17 @@ function Bookingscreen({ navigation }) {
                   </View>
                 </TouchableOpacity>
               </View>
+              {/* Select Date & Time */}
             </View>
             <View
               style={{
                 ...styles.container3,
-                paddingTop: "4%",
-                height: 275,
+                // paddingTop: "4%",
+                // height: 275,
+                overflow: "hidden",
+
+                height: "auto", // Automatically adjust to content height
+                minHeight: 275,
               }}
             >
               {/* Choose Preferred Location */}
@@ -380,11 +391,13 @@ export default Bookingscreen;
 
 const styles = StyleSheet.create({
   container: {
+    position: "relative",
+
     flex: 1,
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "start",
-    paddingTop: 40,
+    // paddingTop: 40,
 
     // width: "100%",
   },

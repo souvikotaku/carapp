@@ -536,6 +536,7 @@ function Carwashscreen({ navigation }) {
           <View
             style={{
               flexDirection: "row",
+              marginTop: 0,
               // backgroundColor: "red",
             }}
           >
