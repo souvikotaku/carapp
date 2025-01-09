@@ -3,11 +3,16 @@
 This is the link of the backend code:-
 https://github.com/souvikotaku/carbackend
 
-# Instructions to setup the app:-
+# Instructions to setup the frontend app:-
 
 1) You can run this frontend code by first taking a clone of this repo. 
 2) Then in the terminal, do npm install, then yarn start and then the QR code will appear in the terminal.
 3) Scan it with your expo go app on your phone and then you can check it on your phone.
+
+# Instructions to setup the backend app (https://github.com/souvikotaku/carbackend) :-
+1) Clone the repo.
+2) Do npm install.
+3) Then npm start.
 
 # The apk file of the app is downloadable here so that you can install it on your phone:-
 https://drive.google.com/file/d/17lR_TY7P5FNOWyp7ZX_e45CwdVmLGj7B/view?usp=sharing
