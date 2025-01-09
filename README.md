@@ -1,4 +1,4 @@
-It is a car service app I made for interview task purpose, The frontend part is made using expo and react native while the backend part has been made using node/express/mongo.
+# It is a car service app I made for interview task purpose, The frontend part is made using expo and react native while the backend part has been made using node/express/mongo.
 
 This is the link of the backend code:-
 https://github.com/souvikotaku/carbackend
