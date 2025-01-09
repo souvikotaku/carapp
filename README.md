@@ -17,6 +17,9 @@ https://github.com/souvikotaku/carbackend. The backend is deployed on Render (it
 # The apk file of the app is downloadable here so that you can install it on your phone:-
 https://drive.google.com/file/d/11cU46ol7PsOKnMVbDvAvnJfHga3G1jRp/view?usp=sharing
 
+# The link of the demo video of the app
+https://drive.google.com/file/d/10FX9Ofxb2_Wx4M0daVsL_3deQ10cbKKO/view?usp=sharing
+
 # Instructions to examine/test the app:-
 
 1. When the app opens, it will show various cards such as Motors, Motorbikes, Car Wash etc. Click on Car Wash card.
