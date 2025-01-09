@@ -7,7 +7,6 @@ import Payment from "./views/Payment";
 import Carwashscreen from "./views/Carwashscreen";
 import Profilescreen from "./views/Profilescreen";
 import Activityscreen from "./views/Activityscreen";
-import Favoritescreen from "./views/Favoritescreen";
 import Morescreen from "./views/Morescreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -60,8 +59,8 @@ const PostStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="ActivityScreen"
-        component={Activityscreen}
+        name="Morescreen"
+        component={Morescreen}
         options={{
           title: "Posts", // Header title
           headerStyle: {
@@ -81,10 +80,31 @@ const ChatStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="ActivityScreen"
-        component={Activityscreen}
+        name="Morescreen"
+        component={Morescreen}
         options={{
           title: "Chats", // Header title
+          headerStyle: {
+            backgroundColor: "#f8f8f8",
+          },
+          headerTintColor: "#333", // Header text color
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const MoreStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Morescreen"
+        component={Morescreen}
+        options={{
+          title: "User", // Header title
           headerStyle: {
             backgroundColor: "#f8f8f8",
           },
@@ -209,7 +229,7 @@ const TabNav = () => {
       />
       <Tab.Screen
         name="User"
-        component={Morescreen}
+        component={MoreStack}
         options={{
           tabBarIcon: ({ color, size, focused }) => (
             <View style={{ alignItems: "center" }}>

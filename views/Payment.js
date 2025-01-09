@@ -88,7 +88,7 @@ function Paymentscreen({ navigation }) {
     try {
       // Sending the data to the API
       const response = await axios.post(
-        "https://carbackend-xh2m.onrender.com/api/user/create",
+        "https://carbackend-cnuy.onrender.com/api/user/create",
         newBookingdata
       );
       console.log("API Response:", response.data);
@@ -101,7 +101,10 @@ function Paymentscreen({ navigation }) {
 
   const closePopup = () => {
     setPopupVisible(false); // Hide the popup
+
     navigation.navigate("Home"); // Navigate to Home
+
+    navigation.navigate("ActivityScreen"); // Navigate to Home
   };
   const toggleHeart = (index) => {
     setClickedHearts((prev) => ({
