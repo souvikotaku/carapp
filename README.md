@@ -2,6 +2,7 @@
 
 This is the link of the backend code:-
 https://github.com/souvikotaku/carbackend
+The backend is deployed on Render (its a good free alternative to heroku)
 
 # Instructions to setup the frontend app:-
 
