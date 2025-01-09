@@ -251,7 +251,7 @@ function Bookingscreen({ navigation }) {
               // paddingRight: "5%",
               // marginBottom: 430,
               backgroundColor: "#EAECF0",
-              height: height * 0.56,
+              height: height * 0.5,
             }}
           >
             <View
