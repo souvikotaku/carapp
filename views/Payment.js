@@ -47,7 +47,7 @@ function Paymentscreen({ navigation }) {
 
   const viewAlldata = useSelector((state) => state.data.viewAll);
   const confirmdata = useSelector((state) => state.data.confirmdata);
-  console.log("confirmdata here", confirmdata);
+  // console.log("confirmdata here", confirmdata);
   //   console.log("productArrayreduxcart", productArrayreduxcart);
   // console.log("productArrayobject", productArrayobject);
 
@@ -64,8 +64,39 @@ function Paymentscreen({ navigation }) {
 
   const [isPopupVisible, setPopupVisible] = useState(false);
 
-  const handleConfirmClick = () => {
-    setPopupVisible(true); // Show the popup
+  const handleConfirmClick = async () => {
+    const newBookingdata = {
+      totalprice: [
+        confirmdata.price.split(" ").reverse().join(" "),
+        Math.round(
+          (12 / 100) *
+            parseFloat(confirmdata.price.split(" ").reverse().join(" "))
+        ),
+        "0 AED",
+      ]
+        .map((amount) => parseFloat(amount))
+        .reduce((sum, value) => sum + value, 0),
+      vehicle: confirmdata.vehicle,
+      vehiclenumber: confirmdata.vehiclenumber,
+      timeanddate: confirmdata.date,
+      service: confirmdata.title,
+      place: confirmdata.preflocation,
+      location: confirmdata.preflocationactual,
+    };
+
+    console.log("newBookingdata", newBookingdata);
+    try {
+      // Sending the data to the API
+      const response = await axios.post(
+        "https://carbackend-xh2m.onrender.com/api/user/create",
+        newBookingdata
+      );
+      console.log("API Response:", response.data);
+      setPopupVisible(true); // Show the popup upon success
+    } catch (error) {
+      console.error("Error while posting data to API:", error);
+      // Handle error as needed
+    }
   };
 
   const closePopup = () => {
