@@ -15,7 +15,7 @@ https://github.com/souvikotaku/carbackend. The backend is deployed on Render (it
 3) Then npm start.
 
 # The apk file of the app is downloadable here so that you can install it on your phone:-
-https://drive.google.com/file/d/16BrATtIrFblbjt7q4hfXNV-v-HBJf-2G/view?usp=sharing
+https://drive.google.com/file/d/11cU46ol7PsOKnMVbDvAvnJfHga3G1jRp/view?usp=sharing
 
 # Instructions to examine/test the app:-
 
